@@ -19,6 +19,8 @@ public class MainMenu : MonoBehaviour {
 	private MenuState nextState = MenuState.None;
 
 	public Transform[] MainButtons;
+	public Transform BackButton;
+	public Transform LaunchButton;
 
 	// Use this for initialization
 	void Start () {
@@ -43,6 +45,12 @@ public class MainMenu : MonoBehaviour {
 			state = nextState;
 			nextState = MenuState.None;
 		}
+
+		if(state == MenuState.Highscores || state == MenuState.Lobby || state == MenuState.ServerList) {
+			BackButton.gameObject.SetActive(true);
+		}else {
+			BackButton.gameObject.SetActive(false);
+		}
 	}
 
 	void JoinGame() {
@@ -56,7 +64,19 @@ public class MainMenu : MonoBehaviour {
 		nextState = MenuState.Lobby;
 	}
 
-	void Highscores() {
+	[RPC]
+	void startLevel() {
+	}
+
+	void Highscore() {
+		nextState = MenuState.Highscores;
+	}
+
+	void Back() {
+		if(state == MenuState.Lobby) {
+			Network.Disconnect();
+		}
+		nextState = MenuState.Main;
 	}
 
 	void OnGUI() {
@@ -102,6 +122,11 @@ public class MainMenu : MonoBehaviour {
 			} else {
 				GUILayout.Label("You are not hosting.");
 			}
+
+			int players = Network.connections.Length + 1;
+			GUILayout.Label(players.ToString());
+		} else {
+			LaunchButton.gameObject.SetActive(false);
 		}
 	}
 }
