@@ -2,14 +2,11 @@
 using System.Collections;
 
 public class NarwhalBehavior : EnemyBehavior {
-
-	public const int maxHealth = 100;
 	public float angle;
 	public const float speed = 0.03f;
 
 	// Use this for initialization
 	void Start () {
-		health = maxHealth;
 		angle = Random.value * 20 + 80;
 		base.Start ();
 	}

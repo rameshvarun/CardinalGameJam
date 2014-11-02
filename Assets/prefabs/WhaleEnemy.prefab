@@ -69,8 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ede55971e3017148b2f3ccf58308ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 0}
-  health: 0
+  health: 5
   angle: 0
 --- !u!148 &14800000
 NetworkView:
