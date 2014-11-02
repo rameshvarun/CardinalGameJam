@@ -8,10 +8,13 @@ public class SharkBehavior : EnemyBehavior {
 	public const float topLimit = 3;
 	public const float bottomLimit = 0;
 	public float angle;
+	public int shotCounter;
+	public const int maxCounter = 300;
 	
 	// Use this for initialization
 	void Start () {
 		angle = Random.value * 20 + 80;
+		shotCounter = (int)(maxCounter * Random.value);
 		base.Start ();
 	}
 	
@@ -29,6 +32,12 @@ public class SharkBehavior : EnemyBehavior {
 			newY = transform.position.y - fastSpeed * Mathf.Sin (Mathf.PI / 180.0f * angle);
 		}
 		transform.position = new Vector3 (newX, newY, transform.position.z);
+
+		shotCounter++;
+		if (shotCounter >= maxCounter) {
+			shotCounter = 0;
+			fireBullet ();
+		}
 		base.Update ();
 	}
 }

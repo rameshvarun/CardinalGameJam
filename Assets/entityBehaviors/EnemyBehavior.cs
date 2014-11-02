@@ -5,12 +5,14 @@ using System.Collections;
 public class EnemyBehavior : MonoBehaviour {
 	public float health;
 	public const float bottomOfScreen = -6f; //approximately...
+	public const float sideOfScreen = 4f; //approximately...
 
 	public static float ACCURACY = 0.8f;
 
 	public int score;
 
 	public Transform explosion;
+	public Transform bullet;
 
 	float colorDistance = -1;
 
@@ -21,7 +23,8 @@ public class EnemyBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void Update () {
-		if (transform.position.y < bottomOfScreen || health <= 0) {
+		if (transform.position.y < bottomOfScreen ||
+		    health <= 0 || transform.position.x > sideOfScreen || transform.position.x < -sideOfScreen) {
 			Network.Destroy(networkView.viewID);
 		}
 
@@ -51,8 +54,42 @@ public class EnemyBehavior : MonoBehaviour {
 		colorDistance = -1;
 	}
 
-	public void fireBullet(float power, Color color, Vector3 direction) {
-		//spawn bullet of a certain color at certain direction
+	public void fireBullet() {
+		Debug.Log ("A bullet has been fired!");
+		Transform firedBullet = Network.Instantiate (bullet, transform.position, Quaternion.identity, 0) as Transform;
+		BulletBehavior firedBulletBehavior = firedBullet.GetComponent<BulletBehavior> ();
+		Color color = GetComponents<SpriteRenderer>()[0].color;
+		Color newColor;
+		if (color.r > .9f && color.g > .9f && color.b > .9f) {
+			double randValue = Random.value * 3;
+			if(randValue < 1)
+				newColor = new Color(1,0,0);
+			if(randValue < 2)
+				newColor = new Color(0,1,0);
+			else
+				newColor = new Color(0,0,1);
+		} else if (color.r > .9f && color.g > .9f) {
+			if(Random.value < .5)
+				newColor = new Color(1,0,0);
+			else
+				newColor = new Color(0,1,0);
+		} else if (color.r > .9f && color.b > .9f) {
+			if(Random.value < .5)
+				newColor = new Color(1,0,0);
+			else
+				newColor = new Color(0,0,1);
+		} else if (color.g > .9f && color.b > .9f) {
+			if(Random.value < .5)
+				newColor = new Color(0,1,0);
+			else
+				newColor = new Color(0,0,1);
+		} else {
+			newColor = GetComponents<SpriteRenderer>()[0].color;
+		}
+		firedBulletBehavior.color = newColor;
+		firedBulletBehavior.networkView.RPC("SetColor", RPCMode.All, new Vector3(newColor.r,
+		                                                                 newColor.g,
+		                                                                 newColor.b));
 	}
 
 	[RPC]

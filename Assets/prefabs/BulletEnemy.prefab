@@ -9,12 +9,12 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
-  - 61: {fileID: 6100000}
   - 114: {fileID: 11400000}
+  - 61: {fileID: 6100000}
   - 148: {fileID: 14800000}
   m_Layer: 0
-  m_Name: DolphinEnemy
-  m_TagString: EnemyShip
+  m_Name: BulletEnemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,8 +25,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.65999997, y: 5.4000001, z: 0}
+  m_LocalRotation: {x: 0, y: .0359618925, z: 0, w: -.99935317}
+  m_LocalPosition: {x: -5.66605902, y: 4.92131758, z: -.0359387472}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -39,8 +39,8 @@ BoxCollider2D:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Size: {x: 1, y: 1}
+  m_IsTrigger: 0
+  m_Size: {x: .099999994, y: 1}
   m_Center: {x: 0, y: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -50,16 +50,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c00f47be355e07d479bc4d57fcf4e4f9, type: 3}
+  m_Script: {fileID: 11500000, guid: 88579b651258df641b17a6819d5ccbc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: .100000001
   score: 0
-  explosion: {fileID: 400000, guid: 1fd3bbc64bb37c742a4b203ecf87ef31, type: 2}
+  explosion: {fileID: 0}
   bullet: {fileID: 0}
-  offset: 0
-  originalX: 0
-  speed: .0199999996
+  color: {r: 0, g: 0, b: 0, a: 0}
+  angle: 90
 --- !u!148 &14800000
 NetworkView:
   m_ObjectHideFlags: 1
@@ -67,7 +66,7 @@ NetworkView:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
-  m_StateSynchronization: 1
+  m_StateSynchronization: 2
   m_Observed: {fileID: 400000}
   m_ViewID:
     m_ID: 0
@@ -91,8 +90,8 @@ SpriteRenderer:
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
-  m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 2cbb7e0e388dda64ebebf16132c17fe8, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 726080b2205831c448abe51ce7ee798e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
