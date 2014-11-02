@@ -50,6 +50,7 @@ public class MainMenu : MonoBehaviour {
 
 	int dots = 0;
 	float dotTimer = 0;
+	float refreshTimer = 0.9f;
 	
 	// Update is called once per frame
 	void Update () {
@@ -65,6 +66,10 @@ public class MainMenu : MonoBehaviour {
 				}
 			}
 
+			if(nextState == MenuState.ServerList) {
+				RefreshGames();
+			}
+
 			state = nextState;
 			nextState = MenuState.None;
 		}
@@ -77,6 +82,12 @@ public class MainMenu : MonoBehaviour {
 
 		if(state == MenuState.ServerList) {
 			GamePanel.gameObject.SetActive(true);
+			refreshTimer += Time.deltaTime;
+			if(refreshTimer > 1.0f) {
+				refreshTimer = 0.0f;
+				RefreshGames();
+			}
+
 		} else {
 			GamePanel.gameObject.SetActive(false);
 		}
@@ -107,7 +118,6 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void JoinGame() {
-		RefreshGames();
 		nextState = MenuState.ServerList;
 	}
 
@@ -214,14 +224,6 @@ public class MainMenu : MonoBehaviour {
 
 
 		if(state == MenuState.Lobby) {
-			/*if(Network.isServer) {
-				GUILayout.Label("You are hosting.");
-			} else {
-				GUILayout.Label("You are not hosting.");
-			}*/
-
-			GUILayout.Label(players.ToString());
-
 			if(players >= GameManager.NUM_PLAYERS && Network.isServer) {
 				LaunchButton.gameObject.SetActive(true);
 			} else {
