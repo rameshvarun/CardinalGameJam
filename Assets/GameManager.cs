@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour {
 	/// <param name="player">Player.</param>
 	void OnPlayerDisconnected(NetworkPlayer player) {
 		Debug.LogError("A Player disconnected.");
+		Network.Disconnect();
 		Application.LoadLevel(0);
 	}
 
