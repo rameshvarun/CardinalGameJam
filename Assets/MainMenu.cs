@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 
 public enum MenuState {
@@ -8,6 +9,12 @@ public enum MenuState {
 	Lobby,
 	Highscores,
 	None
+}
+
+public enum ShipColor {
+	Red,
+	Green,
+	Blue
 }
 
 public class MainMenu : MonoBehaviour {
@@ -19,6 +26,18 @@ public class MainMenu : MonoBehaviour {
 	private MenuState nextState = MenuState.None;
 
 	public Transform[] MainButtons;
+	public Transform BackButton;
+	public Transform LaunchButton;
+
+	private NetworkDisconnection info;
+
+	private int players = 0;
+
+	public void OnDisconnectedFromServer(NetworkDisconnection info) {
+		this.info = info;
+		Debug.LogError("Disconnected from server: " + info);
+		nextState = MenuState.Main;
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -43,6 +62,12 @@ public class MainMenu : MonoBehaviour {
 			state = nextState;
 			nextState = MenuState.None;
 		}
+
+		if(state == MenuState.Highscores || state == MenuState.Lobby || state == MenuState.ServerList) {
+			BackButton.gameObject.SetActive(true);
+		}else {
+			BackButton.gameObject.SetActive(false);
+		}
 	}
 
 	void JoinGame() {
@@ -51,12 +76,55 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void HostGame() {
-		Network.InitializeServer(32, DEFAULT_PORT, !Network.HavePublicAddress());
+		Network.InitializeServer(2, DEFAULT_PORT, !Network.HavePublicAddress());
 		MasterServer.RegisterHost(gameID, "Join My Game", "Ready to start.");
 		nextState = MenuState.Lobby;
+
+		players = 1;
 	}
 
-	void Highscores() {
+	[RPC]
+	void StartLevel(int color) {
+		ShipColor shipColor = (ShipColor)color;
+		Application.LoadLevel(1);
+	}
+
+	void Highscore() {
+		nextState = MenuState.Highscores;
+	}
+
+	void Back() {
+		if(state == MenuState.Lobby) {
+			Network.Disconnect();
+		}
+		nextState = MenuState.Main;
+	}
+
+	void OnPlayerConnected(NetworkPlayer player) {
+		++players;
+		networkView.RPC("SetPlayers", RPCMode.Others, players);
+	}
+
+	void OnPlayerDisconnected(NetworkPlayer player) {
+		--players;
+		networkView.RPC("SetPlayers", RPCMode.Others, players);
+	}
+
+	[RPC]
+	void SetPlayers(int numPlayers) {
+		players = numPlayers;
+	}
+
+	void Launch() {
+		List<int> colors = new List<int>();
+		colors.Add((int)ShipColor.Red);
+		colors.Add((int)ShipColor.Green);
+		colors.Add((int)ShipColor.Blue);
+		Utils.Shuffle(colors);
+
+		StartLevel(colors[0]);
+		networkView.RPC("StartLevel", Network.connections[0], colors[1]);
+		networkView.RPC("StartLevel", Network.connections[1], colors[2]);
 	}
 
 	void OnGUI() {
@@ -96,12 +164,24 @@ public class MainMenu : MonoBehaviour {
 			}
 		}
 
+
 		if(state == MenuState.Lobby) {
 			if(Network.isServer) {
 				GUILayout.Label("You are hosting.");
 			} else {
 				GUILayout.Label("You are not hosting.");
 			}
+
+			GUILayout.Label(players.ToString());
+
+			if(players == 3 && Network.isServer) {
+				LaunchButton.gameObject.SetActive(true);
+			} else {
+				LaunchButton.gameObject.SetActive(false);
+			}
+
+		} else {
+			LaunchButton.gameObject.SetActive(false);
 		}
 	}
 }
