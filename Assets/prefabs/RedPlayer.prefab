@@ -21,7 +21,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &100002
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -74,10 +74,9 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: .707106829, w: .707106829}
-  m_LocalPosition: {x: -2, y: -2, z: 0}
+  m_LocalPosition: {x: 10.9683132, y: -1.28891778, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 400002}
   - {fileID: 400006}
   - {fileID: 400004}
   m_Father: {fileID: 0}
@@ -92,7 +91,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 400000}
+  m_Father: {fileID: 400004}
   m_RootOrder: 0
 --- !u!4 &400004
 Transform:
@@ -103,9 +102,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: .999999762, y: .999999762, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 400002}
   m_Father: {fileID: 400000}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &400006
 Transform:
   m_ObjectHideFlags: 1
@@ -117,7 +117,7 @@ Transform:
   m_LocalScale: {x: .999999762, y: .999999762, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!61 &6100000
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -155,7 +155,7 @@ NetworkView:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_StateSynchronization: 1
-  m_Observed: {fileID: 400000}
+  m_Observed: {fileID: 400004}
   m_ViewID:
     m_ID: 0
     m_Type: 0
