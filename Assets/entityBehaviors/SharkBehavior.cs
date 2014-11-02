@@ -7,8 +7,8 @@ public class SharkBehavior : EnemyBehavior {
 	public bool vicinity = false;
 	public const float fastSpeed = 0.05f; //when engaging in attack
 	public const float slowSpeed = 0.01f; //when firing slow bullets
-	public const float topLimit = 2;
-	public const float bottomLimit = -1;
+	public const float topLimit = 3;
+	public const float bottomLimit = 0;
 	public float angle;
 	
 	// Use this for initialization

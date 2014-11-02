@@ -63,12 +63,14 @@ public class ShipBehavior : MonoBehaviour {
 					//float roll = Mathf.LerpAngle(rotationAngle, targetAngle, (targetAngle-rotationAngle)/rotateSpeed);
 					//transform.Rotate (new Vector3 (0, 0, -rotateSpeed));
 					rotationAngle -= rotateSpeed;
-					transform.eulerAngles = new Vector3(0, 0, rotationAngle);
+					//transform.eulerAngles = new Vector3(0, 0, rotationAngle);
+					gameObject.transform.Find("player_ship_turret").transform.eulerAngles = new Vector3(0, 0, rotationAngle);
 
 				} else {
 //					transform.Rotate (new Vector3 (0, 0, rotateSpeed));
 					rotationAngle += rotateSpeed;
-					transform.eulerAngles = new Vector3(0, 0, rotationAngle);
+					gameObject.transform.Find("player_ship_turret").transform.eulerAngles = new Vector3(0, 0, rotationAngle);
+					//transform.eulerAngles = new Vector3(0, 0, rotationAngle);
 
 				}
 			}

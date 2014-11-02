@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour {
 	/// <summary>
 	/// In release, set this to 3.
 	/// </summary>
-	public static int NUM_PLAYERS = 2;
+	public static int NUM_PLAYERS = 3;
 	public SpawnEnemyScript enemySpawner;
 
 
@@ -70,13 +70,13 @@ public class GameManager : MonoBehaviour {
 		// Spawn players
 		switch(MainMenu.myColor){
 		case ShipColor.Red:
-			Network.Instantiate(redPlayer, GameObject.Find("RedSpawn").transform.position, Quaternion.identity, 0);
+			Network.Instantiate(redPlayer, GameObject.Find("RedSpawn").transform.position, GameObject.Find ("RedSpawn").transform.rotation, 0);
 			break;
 		case ShipColor.Blue:
-			Network.Instantiate(bluePlayer, GameObject.Find("BlueSpawn").transform.position, Quaternion.identity, 0);
+			Network.Instantiate(bluePlayer, GameObject.Find("BlueSpawn").transform.position, GameObject.Find ("RedSpawn").transform.rotation, 0);
 			break;
 		case ShipColor.Green:
-			Network.Instantiate(greenPlayer, GameObject.Find("GreenSpawn").transform.position, Quaternion.identity, 0);
+			Network.Instantiate(greenPlayer, GameObject.Find("GreenSpawn").transform.position, GameObject.Find ("RedSpawn").transform.rotation, 0);
 			break;
 		}
 	}
