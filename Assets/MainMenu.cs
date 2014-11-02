@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public enum MenuState {
 	Main,
@@ -44,7 +45,6 @@ public class MainMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		MasterServer.RequestHostList(gameID);
 		Application.runInBackground = true;
 	}
 	
@@ -80,7 +80,7 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void JoinGame() {
-		MasterServer.RequestHostList(gameID);
+		RefreshGames();
 		nextState = MenuState.ServerList;
 	}
 
@@ -139,41 +139,50 @@ public class MainMenu : MonoBehaviour {
 		if(players >= 3) networkView.RPC("StartLevel", Network.connections[1], colors[2], seed);
 	}
 
+	public Transform ServerPanel;
 	void RefreshGames() {
+		GamePanel.gameObject.SetActive(true);
 		MasterServer.RequestHostList(gameID);
-	}
 
+		HostData[] data = MasterServer.PollHostList();
+
+		GameObject servers = GameObject.Find("Servers");
+		for(int j = 0; j < servers.transform.childCount; ++j) {
+			Destroy(servers.transform.GetChild(j).gameObject);
+		}
+		
+		// Go through all the hosts in the host list
+		int i = 0;
+		foreach (HostData element in data) {
+			//GUILayout.BeginHorizontal();	
+			string name = element.gameName + " " + element.connectedPlayers + " / " + element.playerLimit;
+			//GUILayout.Label(name);	
+			//GUILayout.Space(5);
+			
+			string hostInfo;
+			hostInfo = "[";
+			foreach (string host in element.ip)
+				hostInfo = hostInfo + host + ":" + element.port + " ";
+			
+			hostInfo = hostInfo + "]";
+
+			Transform panel = Instantiate(ServerPanel, servers.transform.position, Quaternion.identity) as Transform;
+			panel.GetComponentInChildren<Text>().text = name;
+			panel.parent = servers.transform;
+			panel.localScale = new Vector3(1, 1, 1);
+			panel.Translate(0, 2.5f, 0);
+			panel.Translate(0, -1.0f * i, 0);
+			++i;
+
+			panel.GetComponent<Button>().onClick.AddListener(
+				() => {Network.Connect(element); nextState = MenuState.Lobby; }
+			);
+		}
+	}
+	
 	void OnGUI() {
 		if(state == MenuState.ServerList) {
-			HostData[] data = MasterServer.PollHostList();
 
-			// Go through all the hosts in the host list
-			foreach (HostData element in data) {
-				GUILayout.BeginHorizontal();	
-				string name = element.gameName + " " + element.connectedPlayers + " / " + element.playerLimit;
-				GUILayout.Label(name);	
-				GUILayout.Space(5);
-				
-				string hostInfo;
-				hostInfo = "[";
-				foreach (string host in element.ip)
-					hostInfo = hostInfo + host + ":" + element.port + " ";
-
-				hostInfo = hostInfo + "]";
-				GUILayout.Label(hostInfo);	
-				GUILayout.Space(5);
-				GUILayout.Label(element.comment);
-				GUILayout.Space(5);
-				GUILayout.FlexibleSpace();
-				
-				if (GUILayout.Button("Connect"))
-				{
-					// Connect to HostData struct, internally the correct method is used (GUID when using NAT).
-					Network.Connect(element);
-					nextState = MenuState.Lobby;
-				}
-				GUILayout.EndHorizontal();	
-			}
 		}
 
 
