@@ -21,8 +21,8 @@ public class ShipBehavior : MonoBehaviour {
 		travelAngle = 0f;
 
 		//retrieve data about the player
+//		transform.Rotate(new Vector3 (0, 0, 90f));
 		rotationAngle = transform.rotation.eulerAngles.z;
-
 	}
 
 	// Update is called once per frame
@@ -30,23 +30,8 @@ public class ShipBehavior : MonoBehaviour {
 		//Detect mouse clicks
 		if (Input.GetMouseButton (0)) { //left click
 
-			ShipColor myColor = ShipColor.Red;
-			if(GetComponents<SpriteRenderer> () [0].color == new Color(1, 0, 0)) {
-				myColor = ShipColor.Red;
-			}
-			if(GetComponents<SpriteRenderer> () [0].color == new Color(0, 1, 0)) {
-				myColor = ShipColor.Green;
-			}
-			if(GetComponents<SpriteRenderer> () [0].color == new Color(0, 0, 1)) {
-				myColor = ShipColor.Blue;
-			}
-
-			if (myColor == MainMenu.myColor) {
-				isPlayer = true;
-			}
-
 			//Only detect player
-			if(isPlayer) {
+			if(networkView.isMine) {
 				Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				if(mousePos.x > this.transform.position.x)
 					targetAngle = 180.0f / Mathf.PI * Mathf.Atan ((mousePos.y - this.transform.position.y) / (mousePos.x - this.transform.position.x));

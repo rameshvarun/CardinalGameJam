@@ -427,6 +427,7 @@ MonoBehaviour:
   - {fileID: 400000, guid: daf7bcce4d63d5a49b657fd740006245, type: 2}
   - {fileID: 400000, guid: b3cf2719cb4c7c74cbb3109e0a2e82a5, type: 2}
   - {fileID: 400000, guid: cbf773209dc7f4f4fa0e0183ba411506, type: 2}
+  - {fileID: 400000, guid: ddc158ff1be462340abdd061d8492c0e, type: 2}
   nextRange: {x: 15, y: 15}
 --- !u!1001 &1092495012
 Prefab:
@@ -639,7 +640,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
       propertyPath: m_TagString
