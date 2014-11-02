@@ -21,37 +21,175 @@ public class SpawnEnemyScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		// LEVEL SETUP HELPERS
+
+		ArrayList xPositions = new ArrayList();
+		xPositions.Add ((int)(-widthOfScreen * 2 / 3));
+		xPositions.Add ((int)(-widthOfScreen * 1 / 3));
+		xPositions.Add (0);
+		xPositions.Add ((int)(-widthOfScreen * 1 / 3));
+		xPositions.Add ((int)(-widthOfScreen * 2 / 3));
+		ArrayList xPositionsLeft = (ArrayList)xPositions.Clone ();
+
+		ArrayList yOffsets = new ArrayList ();
+		yOffsets.Add (0f);
+		yOffsets.Add (-0.5f);
+		yOffsets.Add (-1f);
+		yOffsets.Add (-1.5f);
+		yOffsets.Add (-2f);
+		yOffsets.Add (-2.5f);
+
+		int[] primaryColorer = new int[4];
+		primaryColorer [0] = 1;
+		primaryColorer [1] = 0;
+		primaryColorer [2] = 0;
+		primaryColorer [3] = 0;
+
+		int[] primarySecondary = new int[4];
+		primarySecondary [0] = 2;
+		primarySecondary [1] = 1;
+		primarySecondary [2] = 0;
+		primarySecondary [3] = 0;
+
+		int[] funRandomColors = new int[4];
+		funRandomColors [0] = 5;
+		funRandomColors [1] = 3;
+		funRandomColors [2] = 0;
+		funRandomColors [3] = 1;
+
+		int[] funRandomEnemies = new int[4];
+		funRandomEnemies [0] = 0;
+		funRandomEnemies [1] = 1;
+		funRandomEnemies [2] = 3;
+		funRandomEnemies [3] = 1;
+
 		levelQueue = new Queue<Wave> ();
-		// One red
+
+		// LEVELS
+
+		// One red narwhal
 		Wave thisWave = new Wave (200);
 		thisWave.enemies.Enqueue(new EnemySave (narwhalEnemy, -widthOfScreen/3, new Color (0, 1, 0), null, null));
 		levelQueue.Enqueue (thisWave);
 
-		// One of each of the others
+		// Teaching movement and beam combination
 		thisWave = new Wave (25);
 		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -widthOfScreen/4, new Color (0, 0, 1), null, null));
 		thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, widthOfScreen/4, new Color (1, 0, 0), null, null));
 		levelQueue.Enqueue (thisWave);
 
+		// Whaaale
 		thisWave = new Wave (200);
 		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, 0, new Color (1, 0, 1), null, null));
 		levelQueue.Enqueue (thisWave);
 
-
+		// Two narwhals and a whale again
 		thisWave = new Wave (400);
-		thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, -widthOfScreen/4, new Color (0, 0, 1), null, null));
-		thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, widthOfScreen/4, new Color (1, 0, 0), null, null));
-		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, 0, new Color (1, 0, 1), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (dolphinEnemy, -widthOfScreen/4, new Color (0, 1, 0), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, widthOfScreen/4, new Color (0, 0, 1), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, 0, new Color (1, 1, 0), null, null));
 		levelQueue.Enqueue (thisWave);
 
+		// Here come more whales...
 		thisWave = new Wave (400);
-		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, widthOfScreen/5, new Color (0, 0, 1), null, null));
-		thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, widthOfScreen/4, new Color (0, 1, 0), null, null));
-		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -widthOfScreen/3, new Color (1, 0, 0), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, widthOfScreen/5, new Color (1, 0, 0), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, widthOfScreen/4, new Color (1, 1, 0), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (dolphinEnemy, -widthOfScreen/3, new Color (0, 1, 1), null, null));
 		levelQueue.Enqueue (thisWave);
 		thisWave = new Wave (300);
-		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, widthOfScreen, new Color (1, 1, 0), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, widthOfScreen, new Color (1, 1, 1), null, null));
 		levelQueue.Enqueue (thisWave);
+
+		// Sharks!!
+		thisWave = new Wave (400);
+		thisWave.enemies.Enqueue (new EnemySave (sharkEnemy, -widthOfScreen/3, (float) yOffsets[0], new Color (1, 0, 0), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (sharkEnemy, widthOfScreen/3, (float) yOffsets[0], new Color (0, 1, 1), null, null));
+		levelQueue.Enqueue (thisWave);
+
+		// Random narwhals...!
+		thisWave = new Wave (500);
+		for (int i = 0; i < 5; i++) {
+			// Generating random x and y
+			int xIndex = Mathf.FloorToInt(Random.Range(0, Mathf.Max (0, xPositionsLeft.Count-1)));
+			int yIndex = Mathf.FloorToInt(Random.Range(0, 4));
+			Debug.Log ("i: " + i + ", xIndex: " + xIndex + ", size: " + xPositionsLeft.Count); 
+			
+			int x = (int) xPositionsLeft[xIndex];
+			float yOffset = (float) yOffsets[yIndex];
+			xPositionsLeft.RemoveAt(xIndex);
+			//			Debug.Log ("x: " + x + "yOffset: " + yOffset); 
+			thisWave.enemies.Enqueue (new EnemySave (dolphinEnemy, x, yOffset, Color.black, null, primaryColorer));
+		}
+		xPositionsLeft = (ArrayList)xPositions.Clone ();
+		levelQueue.Enqueue (thisWave);
+
+		thisWave = new Wave (300);
+		for (int i = 0; i < 3; i++) {
+			int xIndex = Mathf.FloorToInt(Random.Range(0, Mathf.Max (0, xPositionsLeft.Count-1)));
+			int yIndex = Mathf.FloorToInt(Random.Range(0, yOffsets.Count));
+			Debug.Log ("i: " + i + ", xIndex: " + xIndex + ", size: " + xPositionsLeft.Count); 
+
+			int x = (int) xPositions[xIndex];
+			float yOffset = (float) yOffsets[yIndex];
+			xPositionsLeft.RemoveAt(xIndex);
+
+			thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, x, yOffset, Color.black, null, primarySecondary));
+		}
+		xPositionsLeft = (ArrayList)xPositions.Clone ();
+		levelQueue.Enqueue (thisWave);
+
+		thisWave = new Wave (50);
+		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, 0, Color.white, null, null));
+		levelQueue.Enqueue (thisWave);
+		
+		thisWave = new Wave (300);
+		for (int i = 0; i < 3; i++) {
+			int xIndex = Mathf.FloorToInt(Random.Range(0, Mathf.Max (0, xPositionsLeft.Count-1)));
+			int yIndex = Mathf.FloorToInt(Random.Range(0, 2));
+			Debug.Log ("i: " + i + ", xIndex: " + xIndex + ", size: " + xPositionsLeft.Count); 
+
+			int x = (int) xPositions[xIndex];
+			float yOffset = (float) yOffsets[yIndex];
+			xPositionsLeft.RemoveAt(xIndex);
+			
+			thisWave.enemies.Enqueue (new EnemySave (sharkEnemy, x, yOffset, Color.black, null, funRandomColors));
+		}
+		xPositionsLeft = (ArrayList) xPositions.Clone ();
+		levelQueue.Enqueue (thisWave);
+
+		thisWave = new Wave (200);
+		for (int i = 0; i < 5; i++) {
+			int xIndex = Mathf.FloorToInt(Random.Range(0, Mathf.Max (0, xPositionsLeft.Count-1)));
+			int yIndex = Mathf.FloorToInt(Random.Range(0, 3));
+			Debug.Log ("i: " + i + ", xIndex: " + xIndex + ", size: " + xPositionsLeft.Count); 
+
+			int x = (int) xPositions[xIndex];
+			float yOffset = (float) yOffsets[yIndex];
+			xPositionsLeft.RemoveAt(xIndex);
+			
+			thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, x, yOffset, Color.black, null, funRandomColors));
+		}
+		xPositionsLeft = (ArrayList)xPositions.Clone ();
+		levelQueue.Enqueue (thisWave);
+
+		for (int w = 0; w < 10; w++) {
+
+			thisWave = new Wave (400 - w * 30);
+			for (int i = 0; i < 5; i++) {
+				int xIndex = Mathf.FloorToInt(Random.Range(0, Mathf.Max (0, xPositionsLeft.Count-1)));
+				int yIndex = Mathf.FloorToInt(Random.Range(0, 3));
+				Debug.Log ("i: " + i + ", xIndex: " + xIndex + ", size: " + xPositionsLeft.Count); 
+
+				int x = (int) xPositions[xIndex];
+				float yOffset = (float) yOffsets[yIndex];
+				xPositionsLeft.RemoveAt(xIndex);
+				
+				thisWave.enemies.Enqueue (new EnemySave (null, x, yOffset, Color.black, funRandomEnemies, funRandomColors));
+			}
+			xPositionsLeft = (ArrayList)xPositions.Clone ();
+			levelQueue.Enqueue (thisWave);
+
+		}
 
 	}
 
@@ -115,6 +253,11 @@ public class SpawnEnemyScript : MonoBehaviour {
 
 	Transform generateRandEnemyAtX(int dolphin, int whale, int narwhal, int shark, float x) {
 		Vector3 position = new Vector3(x, topOfScreen, 0);
+		return generateRandEnemyAtPosition(dolphin, whale, narwhal, shark, position); 
+	}
+
+	Transform generateRandEnemyAtXOffsetByY(int dolphin, int whale, int narwhal, int shark, float x, float yOffset) {
+		Vector3 position = new Vector3(x, topOfScreen+yOffset, 0);
 		return generateRandEnemyAtPosition(dolphin, whale, narwhal, shark, position); 
 	}
 
@@ -228,6 +371,7 @@ public class Wave {
 public class EnemySave {
 	public Transform transform;
 	public float xPosition;
+	public float yOffset;
 	public Color color; 
 
 	public int[] typeRandomizers; // if type = -1, use this
@@ -238,6 +382,7 @@ public class EnemySave {
 		color = Color.black;
 		typeRandomizers = new int[4];
 		colorRandomizers = new int[4];
+		yOffset = 0;
 	}
 	public EnemySave (Transform transf, float x, Color c, int[] typeR, int[] colorR) {
 		transform = transf;
@@ -245,5 +390,14 @@ public class EnemySave {
 		color = c;
 		typeRandomizers = typeR;
 		colorRandomizers = colorR;
+		yOffset = 0;
+	}
+	public EnemySave (Transform transf, float x, float yOffst, Color c, int[] typeR, int[] colorR) {
+		transform = transf;
+		xPosition = x;
+		color = c;
+		typeRandomizers = typeR;
+		colorRandomizers = colorR;
+		yOffset = yOffst;
 	}
 }

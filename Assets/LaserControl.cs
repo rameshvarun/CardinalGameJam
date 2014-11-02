@@ -149,7 +149,7 @@ public class LaserControl : MonoBehaviour {
 			float angle = laser.gameObject.transform.parent.gameObject.transform.rotation.eulerAngles.z;
 			laser.angle = angle;
 			laser.setTrajectoryAndEndPositionFromAngle ();
-			Debug.Log ("Turning laser: " + laser.color + "; angle: " + laser.angle + "; startPosition: " + laser.startPosition());
+//			Debug.Log ("Turning laser: " + laser.color + "; angle: " + laser.angle + "; startPosition: " + laser.startPosition());
 //			redLaser.setAlphaByDistance(Vector3.Distance(mousePos, playerLaser.startPosition));
 		}
 	}
