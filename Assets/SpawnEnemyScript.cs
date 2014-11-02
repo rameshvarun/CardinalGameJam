@@ -85,7 +85,7 @@ public class SpawnEnemyScript : MonoBehaviour {
 
 		// Two narwhals and a whale again
 		thisWave = new Wave (400);
-		thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, -widthOfScreen/4, new Color (0, 1, 0), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (dolphinEnemy, -widthOfScreen/4, new Color (0, 1, 0), null, null));
 		thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, widthOfScreen/4, new Color (0, 0, 1), null, null));
 		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, 0, new Color (1, 1, 0), null, null));
 		levelQueue.Enqueue (thisWave);
@@ -94,7 +94,7 @@ public class SpawnEnemyScript : MonoBehaviour {
 		thisWave = new Wave (400);
 		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, widthOfScreen/5, new Color (1, 0, 0), null, null));
 		thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, widthOfScreen/4, new Color (1, 1, 0), null, null));
-		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -widthOfScreen/3, new Color (0, 1, 1), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (dolphinEnemy, -widthOfScreen/3, new Color (0, 1, 1), null, null));
 		levelQueue.Enqueue (thisWave);
 		thisWave = new Wave (300);
 		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, widthOfScreen, new Color (1, 1, 1), null, null));
@@ -118,7 +118,7 @@ public class SpawnEnemyScript : MonoBehaviour {
 			float yOffset = (float) yOffsets[yIndex];
 			xPositionsLeft.RemoveAt(xIndex);
 			//			Debug.Log ("x: " + x + "yOffset: " + yOffset); 
-			thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, x, yOffset, Color.black, null, primaryColorer));
+			thisWave.enemies.Enqueue (new EnemySave (dolphinEnemy, x, yOffset, Color.black, null, primaryColorer));
 		}
 		xPositionsLeft = (ArrayList)xPositions.Clone ();
 		levelQueue.Enqueue (thisWave);
@@ -157,7 +157,7 @@ public class SpawnEnemyScript : MonoBehaviour {
 		xPositionsLeft = (ArrayList) xPositions.Clone ();
 		levelQueue.Enqueue (thisWave);
 
-		thisWave = new Wave (300);
+		thisWave = new Wave (200);
 		for (int i = 0; i < 5; i++) {
 			int xIndex = Mathf.FloorToInt(Random.Range(0, Mathf.Max (0, xPositionsLeft.Count-1)));
 			int yIndex = Mathf.FloorToInt(Random.Range(0, 3));
