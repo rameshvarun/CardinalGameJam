@@ -13,6 +13,8 @@ public class ShipBehavior : MonoBehaviour {
 	public const float angleThreshold = 2f;
 	public float travelAngle;
 
+	public static float DEAD_ZONE = 0.15f;
+
 	// Use this for initialization
 	void Start () {
 		health = maxHealth;
@@ -25,8 +27,32 @@ public class ShipBehavior : MonoBehaviour {
 		rotationAngle = transform.rotation.eulerAngles.z;
 	}
 
+	[RPC]
+	void SetPos(Vector3 position) {
+		transform.position = position;
+	}
+
 	// Update is called once per frame
 	void Update () {
+
+		if(networkView.isMine) {
+			Vector3 oldPos = transform.position;
+
+			float moveSpeed = 3.0f;
+			if(Input.GetKey(KeyCode.RightArrow) || Input.acceleration.x > DEAD_ZONE) {
+				transform.Translate(new Vector3(1,0,0) * moveSpeed * Time.deltaTime, Space.World);
+
+			}
+			if(Input.GetKey(KeyCode.LeftArrow) || Input.acceleration.x < -DEAD_ZONE) {
+				transform.Translate(new Vector3(-1,0,0) * moveSpeed * Time.deltaTime, Space.World);
+			}
+
+			transform.position = new Vector3(Mathf.Clamp(transform.position.x, -2.4f, 2.4f), transform.position.y, transform.position.z);
+
+			if(transform.position != oldPos) {
+				networkView.RPC("SetPos", RPCMode.Others, transform.position);
+			}
+		}
 		//Detect mouse clicks
 		if (Input.GetMouseButton (0)) { //left click
 
@@ -41,6 +67,8 @@ public class ShipBehavior : MonoBehaviour {
 //				float roll = Mathf.LerpAngle(rotationAngle, targetAngle, Time.time);
 //				transform.eulerAngles = new Vector3 (0, 0, roll);
 //				transform.Rotate (new Vector3 (0, 0, roll));
+
+
 			}
 
 			if (Mathf.Abs (rotationAngle - targetAngle) > angleThreshold) {

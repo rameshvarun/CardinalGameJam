@@ -335,7 +335,7 @@ public class Laser {
 	
 	public void setEndPosition(Vector3 pos) {
 		endPosition = pos;
-		gameObject.transform.localScale = new Vector3(Vector3.Distance (startPosition, endPosition), width, 1);
+		gameObject.transform.localScale = new Vector3(Vector3.Distance (gameObject.transform.position, endPosition), width, 1);
 	}
 	
 	public void setTrajectoryAndEndPositionFromAngle() {
@@ -343,7 +343,7 @@ public class Laser {
 		float length = 15;
 		trajectory = new Vector3 (length, 0, 0);
 		trajectory = Quaternion.Euler (0, 0, angle) * trajectory;
-		setEndPosition(startPosition + trajectory);
+		setEndPosition(gameObject.transform.position + trajectory);
 	}
 	public void activateAt(Vector3 startPos) {
 		active = true;
@@ -357,8 +357,8 @@ public class Laser {
 	}
 	
 	public void setStartPosition(Vector3 pos) {
-		startPosition = pos;
-		gameObject.transform.position = startPosition;
+		gameObject.transform.position = pos;
+		gameObject.transform.position = gameObject.transform.position;
 	}
 	
 	public void setAngle(float theta) {
@@ -395,11 +395,11 @@ public class Laser {
 	}
 	
 	public Vector3 getPossibleIntersectionWith(Laser laser2) {
-		float x1 = startPosition.x;
-		float y1 = startPosition.y;
+		float x1 = gameObject.transform.position.x;
+		float y1 = gameObject.transform.position.y;
 		float m1 = Mathf.Tan (angle*Mathf.Deg2Rad);
-		float x2 = laser2.startPosition.x;
-		float y2 = laser2.startPosition.y;
+		float x2 = laser2.gameObject.transform.position.x;
+		float y2 = laser2.gameObject.transform.position.y;
 		float m2 = Mathf.Tan (laser2.angle*Mathf.Deg2Rad);
 		
 		//		Debug.Log ("x1: " +x1+", y1: "+y1+", m1: "+m1+", x2: "+x2+", y2: "+y2+", m2: "+m2);
@@ -423,12 +423,12 @@ public class Laser {
 			float x = possibleIntersection.x;
 			float y = possibleIntersection.y;
 			
-			float startX1 = startPosition.x;
-			float startY1 = startPosition.y;
+			float startX1 = gameObject.transform.position.x;
+			float startY1 = gameObject.transform.position.y;
 			float endX1 = endPosition.x;
 			float endY1 = endPosition.y;
-			float startX2 = laser2.startPosition.x;
-			float startY2 = laser2.startPosition.y;
+			float startX2 = laser2.gameObject.transform.position.x;
+			float startY2 = laser2.gameObject.transform.position.y;
 			float endX2 = laser2.endPosition.x;
 			float endY2 = laser2.endPosition.y;
 			
