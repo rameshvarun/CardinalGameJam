@@ -22,12 +22,7 @@ public class LaserControl : MonoBehaviour {
 	
 	// Uses this for initialization
 	void Start () {
-		GameObject redLaserObject = GameObject.FindGameObjectWithTag ("RedLaser");
-		playerLaser = new Laser (redLaserObject.transform.position, Input.mousePosition, new Color(255,0,0), redLaserObject);
-		playerLaser.gameObject.transform.localScale = new Vector3 (10, 1, 0);
-		playerLaser.gameObject.SetActive(false);
-		redLaser = playerLaser;
-
+		redLaser = new Laser (GameObject.FindGameObjectWithTag ("RedLaser"));
 		greenLaser = new Laser (GameObject.FindGameObjectWithTag ("GreenLaser"));
 		blueLaser = new Laser (GameObject.FindGameObjectWithTag ("BlueLaser"));
 		yellowLaser = new Laser (GameObject.FindGameObjectWithTag ("YellowLaser"));
@@ -35,6 +30,8 @@ public class LaserControl : MonoBehaviour {
 		cyanLaser = new Laser (GameObject.FindGameObjectWithTag ("CyanLaser"));
 		whiteLaser = new Laser (GameObject.FindGameObjectWithTag ("WhiteLaser"));
 
+
+		playerLaser = redLaser;
 		greenLaser.active = true;
 		blueLaser.active = true;
 
@@ -68,7 +65,7 @@ public class LaserControl : MonoBehaviour {
 
 			}
 		}
-		else if (Input.GetMouseButtonUp (0)) {
+		else {
 			playerLaser.active = false;
 			playerLaser.gameObject.SetActive(false);
 		}
@@ -241,6 +238,7 @@ public class Laser {
 	public GameObject gameObject;
 	public bool active;
 	public Color color;
+	public float width;
 
 	// Goes from x1,y1 to and through x2, y2
 //	public Laser (int x1, int y1, int x2, int y2) {
@@ -251,48 +249,49 @@ public class Laser {
 //		endPosition = startPosition + trajectory * 10; // Testing for now
 //		gameObject = null;
 //		active = false;
+//
 //	}
 
 	// We should probably consolidate the constructors...
 
-	public Laser (Vector3 start, Vector3 target, Color aColor) {
-		startPosition = start;
-		angle = Vector3.Angle(start, target);
-		trajectory = target - startPosition;
-		endPosition = startPosition + trajectory * 10; // Testing for now
-		gameObject = null;
-		active = false;
-		color = aColor;
-	}
+//	public Laser (Vector3 start, Vector3 target, Color aColor) {
+//		startPosition = start;
+//		angle = Vector3.Angle(start, target);
+//		trajectory = target - startPosition;
+//		endPosition = startPosition + trajectory * 10; // Testing for now
+//		gameObject = null;
+//		active = false;
+//		color = aColor;\
+//	}
 
-	public Laser (Vector3 start, Vector3 target, Color aColor, GameObject obj) {
-		startPosition = start;
-		angle = Vector3.Angle(start, target);
-		trajectory = target - startPosition;
-		endPosition = startPosition + trajectory * 10; // Testing for now
-		gameObject = obj;
-		active = false;
-		color = aColor;
-		obj.GetComponent<SpriteRenderer>().color = aColor;
-
-
-
-	}
+//	public Laser (Vector3 start, Vector3 target, Color aColor, GameObject obj) {
+//		startPosition = start;
+//		angle = Vector3.Angle(start, target);
+//		trajectory = target - startPosition;
+//		endPosition = startPosition + trajectory * 10; // Testing for now
+//		gameObject = obj;
+//		active = false;
+//		color = aColor;
+//		obj.GetComponent<SpriteRenderer>().color = aColor;
+//
+//	}
 
 	// This constructor is used the most often
 	public Laser (GameObject obj) {
 		gameObject = obj;
 		startPosition = gameObject.transform.position;
 		angle = gameObject.transform.eulerAngles.z;
+		width = gameObject.transform.localScale.y;
 		setTrajectoryAndEndPositionFromAngle ();
 
 		color = gameObject.GetComponent<SpriteRenderer>().color;
 		active = gameObject.activeSelf;
+
 	}
 
 	public void setEndPosition(Vector3 pos) {
 		endPosition = pos;
-		gameObject.transform.localScale = new Vector3(Vector3.Distance (startPosition, endPosition), 1, 1);
+		gameObject.transform.localScale = new Vector3(Vector3.Distance (startPosition, endPosition), width, 1);
 	}
 
 	public void setTrajectoryAndEndPositionFromAngle() {
