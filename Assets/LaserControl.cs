@@ -14,9 +14,7 @@ public class LaserControl : MonoBehaviour {
 	// Uses this for initialization
 	void Start () {
 		GameObject redLaser = GameObject.FindGameObjectWithTag ("RedLaser");
-		playerLaser = new Laser (redLaser.transform.position, Input.mousePosition);
-		// For now, 
-		playerLaser.gameObject = GameObject.FindGameObjectWithTag ("RedLaser");
+		playerLaser = new Laser (redLaser.transform.position, Input.mousePosition, new Color(255,0,0), redLaser);
 		playerLaser.gameObject.transform.localScale = new Vector3 (10, 1, 0);
 		playerLaser.gameObject.SetActive(false);
 	}
@@ -31,14 +29,16 @@ public class LaserControl : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			playerLaser.active = true;
 			playerLaser.gameObject.SetActive(true);
-			Debug.Log(playerLaser.gameObject.transform);
 		}
+		// If mouse is down, rotate with its parent
 		else if (Input.GetMouseButton (0)) {
 			if (playerLaser.active) {
 				Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 				Vector3 dir = mousePos - playerLaser.gameObject.transform.position;
-				Debug.Log (dir.x);
-				float angle = Mathf.Atan2 (dir.y, dir.x) * Mathf.Rad2Deg;
+//				Debug.Log (dir.x);
+				//float angle = Mathf.Atan2 (dir.y, dir.x) * Mathf.Rad2Deg;
+				float angle = playerLaser.gameObject.transform.parent.gameObject.transform.rotation.eulerAngles.z;
+				playerLaser.angle = angle;
 				playerLaser.gameObject.transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
 			}
 		}
@@ -54,6 +54,10 @@ public class LaserControl : MonoBehaviour {
 //			Transform newLaser = Instantiate (laserPrefab, testShipLocation, Quaternion.identity) as Transform;
 //			newLaser.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
 //			newLaser.localScale = new Vector3(8,1,0);
+	}
+
+	void checkLaserCollisions() {
+
 	}
 }
 
@@ -71,6 +75,7 @@ public class Laser {
 	public float angle; 
 	public GameObject gameObject;
 	public bool active;
+	public Color color;
 
 	// Goes from x1,y1 to and through x2, y2
 //	public Laser (int x1, int y1, int x2, int y2) {
@@ -83,15 +88,26 @@ public class Laser {
 //		active = false;
 //	}
 
-	public Laser (Vector3 start, Vector3 target) {
+	public Laser (Vector3 start, Vector3 target, Color aColor) {
 		startPosition = start;
 		angle = Vector3.Angle(start, target);
 		trajectory = target - startPosition;
 		endPosition = startPosition + trajectory * 10; // Testing for now
 		gameObject = null;
 		active = false;
+		color = aColor;
 	}
 
+	public Laser (Vector3 start, Vector3 target, Color aColor, GameObject obj) {
+		startPosition = start;
+		angle = Vector3.Angle(start, target);
+		trajectory = target - startPosition;
+		endPosition = startPosition + trajectory * 10; // Testing for now
+		gameObject = obj;
+		active = false;
+		color = aColor;
+		obj.GetComponent<SpriteRenderer>().color = aColor;
+	}
 
 	public Vector3 getPossibleIntersectionWith(Laser laser2) {
 		float x1 = startPosition.x;

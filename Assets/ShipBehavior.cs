@@ -9,8 +9,8 @@ public class ShipBehavior : MonoBehaviour {
 	public const int maxHealth = 100;
 	public float rotationAngle;
 	public float targetAngle;
-	public float rotateSpeed = 2f;
-	public const float angleThreshold = 10f;
+	public float rotateSpeed;
+	public const float angleThreshold = 2f;
 	public float travelAngle;
 
 	// Use this for initialization
@@ -40,18 +40,33 @@ public class ShipBehavior : MonoBehaviour {
 				else
 					targetAngle = 180.0f + 180.0f / Mathf.PI * Mathf.Atan ((mousePos.y - this.transform.position.y) / (mousePos.x - this.transform.position.x));
 				travelAngle = targetAngle - rotationAngle;
+//				float roll = Mathf.LerpAngle(rotationAngle, targetAngle, Time.time);
+//				transform.eulerAngles = new Vector3 (0, 0, roll);
+//				transform.Rotate (new Vector3 (0, 0, roll));
 			}
+
+			if (Mathf.Abs (rotationAngle - targetAngle) > angleThreshold) {
+				Debug.Log("RotationAngle: " + rotationAngle + ", Target angle: " + targetAngle);
+				if(rotationAngle > targetAngle) {
+					//float roll = Mathf.LerpAngle(rotationAngle, targetAngle, (targetAngle-rotationAngle)/rotateSpeed);
+					//transform.Rotate (new Vector3 (0, 0, -rotateSpeed));
+					rotationAngle -= rotateSpeed;
+					transform.eulerAngles = new Vector3(0, 0, rotationAngle);
+
+				} else {
+//					transform.Rotate (new Vector3 (0, 0, rotateSpeed));
+					rotationAngle += rotateSpeed;
+					transform.eulerAngles = new Vector3(0, 0, rotationAngle);
+
+				}
+			}
+
 		}
 
 		//Rotate objects
-		if (Mathf.Abs (rotationAngle - targetAngle) > angleThreshold) {
-			if(rotationAngle > targetAngle) {
-				transform.Rotate (new Vector3 (0, 0, -rotateSpeed));
-				rotationAngle -= rotateSpeed;
-			} else {
-				transform.Rotate (new Vector3 (0, 0, rotateSpeed));
-				rotationAngle += rotateSpeed;
-			}
-		}
+
+
+
+
 	}
 }
