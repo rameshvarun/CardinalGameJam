@@ -7,7 +7,7 @@ public class EnemyBehavior : MonoBehaviour {
 	public const float bottomOfScreen = -6f; //approximately...
 	public const float sideOfScreen = 4f; //approximately...
 
-	public static float ACCURACY = 0.8f;
+	public static float ACCURACY = 0.5f;
 
 	public int score;
 
