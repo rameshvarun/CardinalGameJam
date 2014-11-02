@@ -172,24 +172,24 @@ public class SpawnEnemyScript : MonoBehaviour {
 		xPositionsLeft = (ArrayList)xPositions.Clone ();
 		levelQueue.Enqueue (thisWave);
 
-		for (int w = 0; w < 10; w++) {
-
-			thisWave = new Wave (400 - w * 30);
-			for (int i = 0; i < 5; i++) {
-				int xIndex = Mathf.FloorToInt(Random.Range(0, Mathf.Max (0, xPositionsLeft.Count-1)));
-				int yIndex = Mathf.FloorToInt(Random.Range(0, 3));
-				Debug.Log ("i: " + i + ", xIndex: " + xIndex + ", size: " + xPositionsLeft.Count); 
-
-				int x = (int) xPositions[xIndex];
-				float yOffset = (float) yOffsets[yIndex];
-				xPositionsLeft.RemoveAt(xIndex);
-				
-				thisWave.enemies.Enqueue (new EnemySave (null, x, yOffset, Color.black, funRandomEnemies, funRandomColors));
-			}
-			xPositionsLeft = (ArrayList)xPositions.Clone ();
-			levelQueue.Enqueue (thisWave);
-
-		}
+//		for (int w = 0; w < 10; w++) {
+//
+//			thisWave = new Wave (400 - w * 30);
+//			for (int i = 0; i < 5; i++) {
+//				int xIndex = Mathf.FloorToInt(Random.Range(0, Mathf.Max (0, xPositionsLeft.Count-1)));
+//				int yIndex = Mathf.FloorToInt(Random.Range(0, 3));
+//				Debug.Log ("i: " + i + ", xIndex: " + xIndex + ", size: " + xPositionsLeft.Count); 
+//
+//				int x = (int) xPositions[xIndex];
+//				float yOffset = (float) yOffsets[yIndex];
+//				xPositionsLeft.RemoveAt(xIndex);
+//				
+//				thisWave.enemies.Enqueue (new EnemySave (W, x, yOffset, Color.black, funRandomEnemies, funRandomColors));
+//			}
+//			xPositionsLeft = (ArrayList)xPositions.Clone ();
+//			levelQueue.Enqueue (thisWave);
+//
+//		}
 
 	}
 
@@ -297,6 +297,8 @@ public class SpawnEnemyScript : MonoBehaviour {
 				}
 				else {
 					Wave thisWave = levelQueue.Dequeue();
+					levelQueue.Enqueue(thisWave);
+
 					while (thisWave.enemies.Count > 0) {
 						EnemySave enemy = thisWave.enemies.Dequeue();
 
