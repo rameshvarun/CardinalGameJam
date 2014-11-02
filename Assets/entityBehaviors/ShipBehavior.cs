@@ -21,8 +21,8 @@ public class ShipBehavior : MonoBehaviour {
 		travelAngle = 0f;
 
 		//retrieve data about the player
+		transform.Rotate(new Vector3 (0, 0, 90f));
 		rotationAngle = transform.rotation.eulerAngles.z;
-
 	}
 
 	// Update is called once per frame

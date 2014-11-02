@@ -29,6 +29,11 @@ public class LaserControl : MonoBehaviour {
 	}
 
 	void GetLaserPointers() {
+
+		if (GameObject.FindGameObjectWithTag ("RedLaser") == null) {
+			return;
+		}
+
 		redLaser = new Laser (GameObject.FindGameObjectWithTag ("RedLaser"));
 		greenLaser = new Laser (GameObject.FindGameObjectWithTag ("GreenLaser"));
 		blueLaser = new Laser (GameObject.FindGameObjectWithTag ("BlueLaser"));
@@ -52,6 +57,10 @@ public class LaserControl : MonoBehaviour {
 		StopLaser(redLaser);
 		StopLaser(blueLaser);
 		StopLaser(greenLaser);
+
+//		ActivateLaser (greenLaser);
+//		greenLaser.gameObject.transform.parent.gameObject.transform.Rotate (new Vector3 (0, 0, 160));
+//		greenLaser.angle = 90;
 	}
 	
 	// Update is called once per frame
@@ -63,12 +72,12 @@ public class LaserControl : MonoBehaviour {
 		}
 	}
 	void ActivateMyLaser() {
-		Debug.Log ("Imma FIRIN MA LAZAR!");
+//		Debug.Log ("Imma FIRIN MA LAZAR!");
 		ActivateLaser (playerLaser);
 		networkView.RPC ("ActivateTeammateLaser", RPCMode.Others, myColorString);
 	}
 	void ActivateLaser(Laser laser) {
-		Debug.Log ("Muahaha! The LASER!");
+//		Debug.Log ("Muahaha! The LASER!");
 		laser.active = true;
 		laser.gameObject.SetActive(true);
 		Camera.main.SendMessage("Shake", CameraShake.SMALL_SHAKE);
@@ -79,7 +88,7 @@ public class LaserControl : MonoBehaviour {
 	/// </summary>
 	[RPC]
 	void ActivateTeammateLaser(string colorStr) {
-		Debug.Log ("What? Not the Laser by " + colorStr + "!!");
+//		Debug.Log ("What? Not the Laser by " + colorStr + "!!");
 		if (colorStr.Equals("r")) {
 			ActivateLaser(redLaser);
 		}
@@ -92,13 +101,13 @@ public class LaserControl : MonoBehaviour {
 	}
 
 	void StopMyLaser () {
-		Debug.Log ("No! My laser!!");
+//		Debug.Log ("No! My laser!!");
 		StopLaser (playerLaser);
 		networkView.RPC ("StopTeammateLaser", RPCMode.Others, myColorString);
 	}
 
 	void StopLaser(Laser laser) {
-		Debug.Log ("That's enough of this laser.");
+//		Debug.Log ("That's enough of this laser.");
 		laser.active = false;
 		laser.gameObject.SetActive(false);
 	}
@@ -107,7 +116,7 @@ public class LaserControl : MonoBehaviour {
 		/// </summary>
 	[RPC]
 	void StopTeammateLaser(string colorStr){
-		Debug.Log ("Hasta la vista, lazer " + colorStr + "!");
+//		Debug.Log ("Hasta la vista, lazer " + colorStr + "!");
 		if (colorStr.Equals("r")) {
 			StopLaser(redLaser);
 		}
@@ -134,9 +143,10 @@ public class LaserControl : MonoBehaviour {
 		if (laser.active) {
 //			Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 //			mousePos.z = 0;
-			float angle = playerLaser.gameObject.transform.parent.gameObject.transform.rotation.eulerAngles.z;
-			redLaser.setAngle(angle);
-			redLaser.setTrajectoryAndEndPositionFromAngle ();
+			float angle = laser.gameObject.transform.parent.gameObject.transform.rotation.eulerAngles.z;
+			laser.angle = angle;
+			laser.setTrajectoryAndEndPositionFromAngle ();
+			Debug.Log ("Turning laser: " + laser.color + "; angle: " + laser.angle + "; startPosition: " + laser.startPosition);
 //			redLaser.setAlphaByDistance(Vector3.Distance(mousePos, playerLaser.startPosition));
 		}
 	}
@@ -146,11 +156,7 @@ public class LaserControl : MonoBehaviour {
 		redLaser.setTrajectoryAndEndPositionFromAngle ();
 		greenLaser.setTrajectoryAndEndPositionFromAngle ();
 		blueLaser.setTrajectoryAndEndPositionFromAngle ();
-		Debug.Log ("Before: " + cyanLaser.endPosition);
-
 		cyanLaser.setTrajectoryAndEndPositionFromAngle ();
-		Debug.Log ("After: " + cyanLaser.endPosition);
-
 		magentaLaser.setTrajectoryAndEndPositionFromAngle ();
 		yellowLaser.setTrajectoryAndEndPositionFromAngle ();
 		
