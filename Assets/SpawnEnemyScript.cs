@@ -89,9 +89,10 @@ public class SpawnEnemyScript : MonoBehaviour {
 		} else {
 			target = sharkEnemy;
 		}
-		return Instantiate(target,
+
+		return Network.Instantiate(target,
 		                   new Vector3(-(widthOfScreen - 2) / 2 + Random.value * (widthOfScreen - 2),topOfScreen + Random.value,0),
-		                   Quaternion.identity) as Transform;
+		                   Quaternion.identity, 0) as Transform;
 	}
 	
 	// Update is called once per frame
@@ -104,7 +105,11 @@ public class SpawnEnemyScript : MonoBehaviour {
 			for(int i = 0; i < numEnemies; i++) {
 				Transform clone = generateRandEnemy(0,0,0,1);
 				EnemyBehavior actualClone = clone.GetComponent<EnemyBehavior>();
-				actualClone.GetComponents<SpriteRenderer>()[0].color = generateRandColor(0,0,1,0);
+
+				Color col = generateRandColor(0,0,1,0);
+				actualClone.networkView.RPC("SetColor", RPCMode.All, new Vector3(col.a, col.b, col.g));
+				//actualClone.GetComponents<SpriteRenderer>()[0].color = ;
+
 				/*EnemyBehavior dolphinClone = clone.GetComponent<>();
 				dolphinClone.GetComponents<SpriteRenderer>()[0].color = generateRandColor(0,0,1,0);*/
 				/*Transform clone = Instantiate(dolphinEnemy,

@@ -22,4 +22,9 @@ public class EnemyBehavior : MonoBehaviour {
 	public void fireBullet(float power, Color color, Vector3 direction) {
 		//spawn bullet of a certain color at certain direction
 	}
+
+	[RPC]
+	public void SetColor(Vector3 color) {
+		GetComponents<SpriteRenderer>()[0].color = new Color(color.x, color.y, color.z);
+	}
 }

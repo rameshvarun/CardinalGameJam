@@ -32,9 +32,18 @@ public class LaserControl : MonoBehaviour {
 		cyanLaser = new Laser (GameObject.FindGameObjectWithTag ("CyanLaser"));
 		whiteLaser = new Laser (GameObject.FindGameObjectWithTag ("WhiteLaser"));
 
-		playerLaser = redLaser;
-		greenLaser.active = true;
-		blueLaser.active = true;
+		if(MainMenu.myColor == ShipColor.Red)
+			playerLaser = redLaser;
+		else if(MainMenu.myColor == ShipColor.Blue)
+			playerLaser = blueLaser;
+		else if(MainMenu.myColor == ShipColor.Green)
+			playerLaser = greenLaser;
+
+		//greenLaser.active = true;
+		//blueLaser.active = true;
+		StopLaser(redLaser);
+		StopLaser(blueLaser);
+		StopLaser(greenLaser);
 
 //		activeLasers.Enqueue (greenLaser);
 //		activeLasers.Enqueue (blueLaser);
@@ -47,11 +56,21 @@ public class LaserControl : MonoBehaviour {
 		checkLaserCollisions ();
 	}
 
+	void ActivateLaser(Laser laser) {
+		laser.active = true;
+		laser.gameObject.SetActive(true);
+		Camera.main.SendMessage("Shake", CameraShake.SMALL_SHAKE);
+	}
+
+	void StopLaser(Laser laser) {
+		laser.active = false;
+		laser.gameObject.SetActive(false);
+	}
+
 	void updatePlayerLaser() {
 		if (Input.GetMouseButtonDown (0)) {
-			playerLaser.active = true;
-			playerLaser.gameObject.SetActive(true);
-			Camera.main.SendMessage("Shake", CameraShake.SMALL_SHAKE);
+			ActivateLaser(playerLaser);
+
 		}
 		// If mouse is down, rotate with its parent
 		else if (Input.GetMouseButton (0)) {
@@ -68,8 +87,7 @@ public class LaserControl : MonoBehaviour {
 			}
 		}
 		else {
-			playerLaser.active = false;
-			playerLaser.gameObject.SetActive(false);
+			StopLaser(playerLaser);
 		}
 
 // 		Code for instantiating a new laser, if we do that:
