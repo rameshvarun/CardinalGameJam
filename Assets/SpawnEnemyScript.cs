@@ -328,6 +328,9 @@ public class SpawnEnemyScript : MonoBehaviour {
 						EnemyBehavior actualClone = clone.GetComponent<EnemyBehavior> ();
 						actualClone.networkView.RPC ("SetColor", RPCMode.All, new Vector3 (col.r, col.g, col.b));
 
+//						if (actualClone is DolphinBehavior) {
+//							actualClone.networkView.RPC ("SetStartSeed", RPCMode.All, Random.value);
+//						}
 					}
 				}
 			}
