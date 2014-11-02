@@ -46,7 +46,6 @@ public class ShipBehavior : MonoBehaviour {
 			}
 
 			if (Mathf.Abs (rotationAngle - targetAngle) > angleThreshold) {
-				Debug.Log("RotationAngle: " + rotationAngle + ", Target angle: " + targetAngle);
 				if(rotationAngle > targetAngle) {
 					//float roll = Mathf.LerpAngle(rotationAngle, targetAngle, (targetAngle-rotationAngle)/rotateSpeed);
 					//transform.Rotate (new Vector3 (0, 0, -rotateSpeed));
