@@ -137,6 +137,7 @@ public class LaserControl : MonoBehaviour {
 			float angle = playerLaser.gameObject.transform.parent.gameObject.transform.Find("player_ship_turret").transform.rotation.eulerAngles.z;
 			redLaser.setAngle(angle);
 			redLaser.setTrajectoryAndEndPositionFromAngle ();
+			Debug.Log (angle);
 			//			redLaser.setAlphaByDistance(Vector3.Distance(mousePos, playerLaser.startPosition));
 		}
 	}
