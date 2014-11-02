@@ -254,6 +254,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 414327936}
   - 212: {fileID: 414327935}
+  - 61: {fileID: 414327937}
   m_Layer: 0
   m_Name: Laser
   m_TagString: YellowLaser
@@ -296,6 +297,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
+--- !u!61 &414327937
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 414327934}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Size: {x: .999999881, y: .0999999866}
+  m_Center: {x: .49999994, y: 0}
 --- !u!1 &479440722
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +317,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 479440724}
   - 212: {fileID: 479440723}
+  - 61: {fileID: 479440725}
   m_Layer: 0
   m_Name: Laser
   m_TagString: MagentaLaser
@@ -347,6 +360,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!61 &479440725
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 479440722}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Size: {x: 1.00000024, y: .100000024}
+  m_Center: {x: .500000119, y: 0}
 --- !u!1 &723980902
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,6 +534,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1128518268}
   - 212: {fileID: 1128518267}
+  - 61: {fileID: 1128518269}
   m_Layer: 0
   m_Name: Laser
   m_TagString: WhiteLaser
@@ -552,6 +577,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!61 &1128518269
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1128518266}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Size: {x: 1.00000024, y: .100000039}
+  m_Center: {x: .500000119, y: -1.1920929e-07}
 --- !u!1 &1273709393
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,6 +597,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1273709395}
   - 212: {fileID: 1273709394}
+  - 61: {fileID: 1273709396}
   m_Layer: 0
   m_Name: Laser
   m_TagString: CyanLaser
@@ -603,6 +640,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!61 &1273709396
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1273709393}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Size: {x: 1.00000024, y: .100000024}
+  m_Center: {x: .500000119, y: 0}
 --- !u!1001 &1296082870
 Prefab:
   m_ObjectHideFlags: 0
