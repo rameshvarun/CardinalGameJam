@@ -639,7 +639,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
       propertyPath: m_TagString
