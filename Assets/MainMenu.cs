@@ -28,6 +28,8 @@ public class MainMenu : MonoBehaviour {
 	public Transform BackButton;
 	public Transform LaunchButton;
 
+	public Transform GamePanel;
+
 	public static NetworkDisconnection info;
 
 	private int players = 0;
@@ -68,6 +70,12 @@ public class MainMenu : MonoBehaviour {
 			BackButton.gameObject.SetActive(true);
 		}else {
 			BackButton.gameObject.SetActive(false);
+		}
+
+		if(state == MenuState.ServerList) {
+			GamePanel.gameObject.SetActive(true);
+		} else {
+			GamePanel.gameObject.SetActive(false);
 		}
 	}
 
@@ -131,6 +139,10 @@ public class MainMenu : MonoBehaviour {
 		if(players >= 3) networkView.RPC("StartLevel", Network.connections[1], colors[2], seed);
 	}
 
+	void RefreshGames() {
+		MasterServer.RequestHostList(gameID);
+	}
+
 	void OnGUI() {
 		if(state == MenuState.ServerList) {
 			HostData[] data = MasterServer.PollHostList();
@@ -161,10 +173,6 @@ public class MainMenu : MonoBehaviour {
 					nextState = MenuState.Lobby;
 				}
 				GUILayout.EndHorizontal();	
-			}
-
-			if(GUILayout.Button("Refresh")) {
-				MasterServer.RequestHostList(gameID);
 			}
 		}
 
