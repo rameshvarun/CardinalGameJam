@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour {
 	int playersLoaded = 0;
 	bool isLoaded = false;
 
+	public Transform redPlayer;
+	public Transform greenPlayer;
+	public Transform bluePlayer;
+
 	/// <summary>
 	/// Called on a client when it loses connection with the server.
 	/// </summary>
@@ -62,7 +66,19 @@ public class GameManager : MonoBehaviour {
 
 		if (Network.isServer)
 						GetComponent<SpawnEnemyScript> ().enabled = true;
+
 		// Spawn players
+		switch(MainMenu.myColor){
+		case ShipColor.Red:
+			Network.Instantiate(redPlayer, GameObject.Find("RedSpawn").transform.position, Quaternion.identity, 0);
+			break;
+		case ShipColor.Blue:
+			Network.Instantiate(bluePlayer, GameObject.Find("BlueSpawn").transform.position, Quaternion.identity, 0);
+			break;
+		case ShipColor.Green:
+			Network.Instantiate(greenPlayer, GameObject.Find("GreenSpawn").transform.position, Quaternion.identity, 0);
+			break;
+		}
 	}
 	
 	// Update is called once per frame

@@ -24,19 +24,22 @@ public class ShipBehavior : MonoBehaviour {
 		rotationAngle = transform.rotation.eulerAngles.z;
 
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		//Detect mouse clicks
 		if (Input.GetMouseButton (0)) { //left click
 
 			ShipColor myColor = ShipColor.Red;
-			if(GetComponents<SpriteRenderer> () [0].color == new Color(1, 0, 0))
+			if(GetComponents<SpriteRenderer> () [0].color == new Color(1, 0, 0)) {
 				myColor = ShipColor.Red;
-			if(GetComponents<SpriteRenderer> () [0].color == new Color(0, 1, 0))
+			}
+			if(GetComponents<SpriteRenderer> () [0].color == new Color(0, 1, 0)) {
 				myColor = ShipColor.Green;
-			if(GetComponents<SpriteRenderer> () [0].color == new Color(0, 0, 1))
+			}
+			if(GetComponents<SpriteRenderer> () [0].color == new Color(0, 0, 1)) {
 				myColor = ShipColor.Blue;
+			}
 
 			if (myColor == MainMenu.myColor) {
 				isPlayer = true;
