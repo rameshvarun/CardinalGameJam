@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour {
 	/// <summary>
 	/// In release, set this to 3.
 	/// </summary>
-	public static int NUM_PLAYERS = 2;
+	public static int NUM_PLAYERS = 3;
 	public SpawnEnemyScript enemySpawner;
 
 
