@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 396da1bdb305ed247a3feea248e82e3a, type: 3}
@@ -140,6 +140,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 110099085}
+  m_HideIfInvisible: 0
 --- !u!1001 &153830438
 Prefab:
   m_ObjectHideFlags: 0
@@ -591,7 +592,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 396da1bdb305ed247a3feea248e82e3a, type: 3}
@@ -612,6 +613,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 758670414}
+  m_HideIfInvisible: 0
 --- !u!1 &800895613
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,6 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
 --- !u!4 &840443264
 Transform:
   m_ObjectHideFlags: 0
@@ -817,7 +820,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 396da1bdb305ed247a3feea248e82e3a, type: 3}
@@ -838,6 +841,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 934711083}
+  m_HideIfInvisible: 0
 --- !u!1 &1049903041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,7 +1222,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 396da1bdb305ed247a3feea248e82e3a, type: 3}
@@ -1239,6 +1243,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1297993378}
+  m_HideIfInvisible: 0
 --- !u!224 &1297993381
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1328,7 +1333,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 396da1bdb305ed247a3feea248e82e3a, type: 3}
@@ -1349,6 +1354,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1331689786}
+  m_HideIfInvisible: 0
 --- !u!1001 &1448770761
 Prefab:
   m_ObjectHideFlags: 0
@@ -1438,7 +1444,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 396da1bdb305ed247a3feea248e82e3a, type: 3}
@@ -1459,6 +1465,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1449973065}
+  m_HideIfInvisible: 0
 --- !u!1 &1469948417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,7 +1618,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 396da1bdb305ed247a3feea248e82e3a, type: 3}
@@ -1632,6 +1639,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1579079010}
+  m_HideIfInvisible: 0
 --- !u!1 &1770197539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,6 +1751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyCounter: 0
   respawnTime: 300
+  structuredMode: 1
   dolphinEnemy: {fileID: 400000, guid: e23e711e0fff31f40abc6c49b478458d, type: 2}
   sharkEnemy: {fileID: 400000, guid: 0c4a9e7f94cce524bbc36738d7918713, type: 2}
   narwhalEnemy: {fileID: 400000, guid: 0e1f58d1157199e43ad7c65c868fa5ba, type: 2}
@@ -1883,6 +1892,7 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
+  m_OverrideSorting: 0
   m_SortingLayerID: 0
   m_SortingOrder: 100
 --- !u!224 &2089701439
@@ -1952,7 +1962,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 396da1bdb305ed247a3feea248e82e3a, type: 3}
@@ -1973,3 +1983,4 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2103728491}
+  m_HideIfInvisible: 0

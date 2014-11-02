@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Let's do this when lasers cross?
+
 public class CameraShake : MonoBehaviour {
 	public Vector3 originalPosition;
 	public Quaternion originalOrientation;

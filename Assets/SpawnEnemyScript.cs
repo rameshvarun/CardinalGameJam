@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
+// TODO: Have new enemy position change randomly until not overlapping with any that have already been placed
 public class SpawnEnemyScript : MonoBehaviour {
 
 	public int enemyCounter = 0;
 	public int respawnTime = 300; //every 5 seconds
-	public Queue levelQueue;
+	public Queue<Level> levelQueue;
 	public const float topOfScreen = 6f;
 	public const float widthOfScreen = 6f;
+
+	public bool structuredMode;
 
 	public Transform dolphinEnemy;
 	public Transform sharkEnemy;
@@ -16,6 +20,26 @@ public class SpawnEnemyScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		levelQueue = new Queue<Level> ();
+		// One red
+		Level thisLevel = new Level (300);
+		thisLevel.enemies.Enqueue(new EnemySave (whaleEnemy, -1, new Color (255, 0, 0), null, null));
+		levelQueue.Enqueue (thisLevel);
+
+		// One of each of the others
+		thisLevel = new Level (200);
+		thisLevel.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 0, 255), null, null));
+		thisLevel.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 255, 0), null, null));
+		levelQueue.Enqueue (thisLevel);
+
+		thisLevel = new Level (300);
+		thisLevel.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 0, 255), null, null));
+		thisLevel.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 255, 0), null, null));
+		thisLevel.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (255, 0, 255), null, null));
+		thisLevel.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (255, 255, 0), null, null));
+		levelQueue.Enqueue (thisLevel);
+
 	}
 
 	//Input the relative ratios of each of the colors
@@ -72,6 +96,16 @@ public class SpawnEnemyScript : MonoBehaviour {
 	}
 
 	Transform generateRandEnemy(int dolphin, int whale, int narwhal, int shark) {
+		Vector3 randomPosition = new Vector3 (-(widthOfScreen - 2) / 2 + Random.value * (widthOfScreen - 2), topOfScreen + Random.value, 0);
+		return generateRandEnemyAtPosition(dolphin, whale, narwhal, shark, randomPosition); 
+	}
+
+	Transform generateRandEnemyAtX(int dolphin, int whale, int narwhal, int shark, float x) {
+		Vector3 position = new Vector3(x, topOfScreen, 0);
+		return generateRandEnemyAtPosition(dolphin, whale, narwhal, shark, position); 
+	}
+
+	Transform generateRandEnemyAtPosition(int dolphin, int whale, int narwhal, int shark, Vector3 pos) {
 		double randSelect = Random.value * (dolphin + whale + narwhal + shark);
 		Transform target;
 		if (randSelect < dolphin) {
@@ -84,35 +118,119 @@ public class SpawnEnemyScript : MonoBehaviour {
 			target = sharkEnemy;
 		}
 
-		return Network.Instantiate(target,
-		                   new Vector3(-(widthOfScreen - 2) / 2 + Random.value * (widthOfScreen - 2),topOfScreen + Random.value,0),
-		                   Quaternion.identity, 0) as Transform;
+		return generateEnemyAtPosition (target, pos);
 	}
-	
+
+	Transform generateEnemyAtPosition(Transform target, Vector3 pos) {
+		return Network.Instantiate (target, pos, Quaternion.identity, 0) as Transform;
+	}
+
+	Transform generateEnemyAtRandomPosition(Transform target) {
+		Vector3 randomPosition = new Vector3 (-(widthOfScreen - 2) / 2 + Random.value * (widthOfScreen - 2), topOfScreen + Random.value, 0);
+		return Network.Instantiate (target, randomPosition, Quaternion.identity, 0) as Transform;
+	}
+
 	// Update is called once per frame
 	void Update () {
-		enemyCounter++;
-		if (enemyCounter > respawnTime) {
-			enemyCounter = 0;
+		if (structuredMode) {
+			enemyCounter++;
+			if (enemyCounter > respawnTime) {
+				enemyCounter = 0;
+				if (levelQueue.Count == 0) {
+					// Final boss!
+				}
+				else {
+					Level thisLevel = levelQueue.Dequeue();
+					while (thisLevel.enemies.Count > 0) {
+						EnemySave enemy = thisLevel.enemies.Dequeue();
 
-			int numEnemies = 4;
-			for(int i = 0; i < numEnemies; i++) {
-				Transform clone = generateRandEnemy(0,1,0,1);
-				EnemyBehavior actualClone = clone.GetComponent<EnemyBehavior>();
+						// Generates clone at given or random position and with given or random transform
+						Transform clone;
+						if (enemy.xPosition == -1) {
+							if (enemy.transform == null) {
+								clone = generateRandEnemy (enemy.typeRandomizers[0], enemy.typeRandomizers[1], enemy.typeRandomizers[2], enemy.typeRandomizers[3]);
+							} else {
+								clone = generateEnemyAtRandomPosition (enemy.transform);
+							}
+						}
+						else {
+							if (enemy.transform == null) {
+								clone = generateRandEnemyAtX (enemy.typeRandomizers[0], enemy.typeRandomizers[1], enemy.typeRandomizers[2], enemy.typeRandomizers[3], enemy.xPosition);
+							} else {
+								clone = generateEnemyAtPosition (enemy.transform, new Vector3(enemy.xPosition, topOfScreen, 0));
+							}
+						}
 
-				Color col = generateRandColor(2,1,0,0);
-				actualClone.networkView.RPC("SetColor", RPCMode.All, new Vector3(col.r, col.g, col.b));
-				//actualClone.GetComponents<SpriteRenderer>()[0].color = ;
+						// Set color to given color or randomly
+						Color col;
+						if (enemy.color == Color.black) {
+							col = generateRandColor(enemy.colorRandomizers[0], enemy.colorRandomizers[1], enemy.colorRandomizers[2], enemy.colorRandomizers[3]);  
+						} else {
+							col = enemy.color;
+						}
+						
+						EnemyBehavior actualClone = clone.GetComponent<EnemyBehavior> ();
+						actualClone.networkView.RPC ("SetColor", RPCMode.All, new Vector3 (col.r, col.g, col.b));
 
-				/*EnemyBehavior dolphinClone = clone.GetComponent<>();
-				dolphinClone.GetComponents<SpriteRenderer>()[0].color = generateRandColor(0,0,1,0);*/
-				/*Transform clone = Instantiate(dolphinEnemy,
-				                              new Vector3(-(widthOfScreen - 2) / 2 + Random.value * (widthOfScreen - 2),topOfScreen + Random.value,0),
-				                              Quaternion.identity) as Transform;
-				DolphinBehavior dolphinClone = clone.GetComponent<DolphinBehavior>();
-				dolphinClone.GetComponents<SpriteRenderer>()[0].color = generateRandColor(0,0,1,0);*/
+					}
+				}
+			}
+		}
+		else {
+			enemyCounter++;
+			if (enemyCounter > respawnTime) {
+					enemyCounter = 0;
+
+					int numEnemies = 4;
+					for (int i = 0; i < numEnemies; i++) {
+						Transform clone = generateRandEnemy (0, 1, 0, 1);
+						EnemyBehavior actualClone = clone.GetComponent<EnemyBehavior> ();
+
+						Color col = generateRandColor (2, 1, 0, 0);
+						actualClone.networkView.RPC ("SetColor", RPCMode.All, new Vector3 (col.r, col.g, col.b));
+						//actualClone.GetComponents<SpriteRenderer>()[0].color = ;
+
+							/*EnemyBehavior dolphinClone = clone.GetComponent<>();
+		dolphinClone.GetComponents<SpriteRenderer>()[0].color = generateRandColor(0,0,1,0);*/
+							/*Transform clone = Instantiate(dolphinEnemy,
+		                              new Vector3(-(widthOfScreen - 2) / 2 + Random.value * (widthOfScreen - 2),topOfScreen + Random.value,0),
+		                              Quaternion.identity) as Transform;
+		DolphinBehavior dolphinClone = clone.GetComponent<DolphinBehavior>();
+		dolphinClone.GetComponents<SpriteRenderer>()[0].color = generateRandColor(0,0,1,0);*/
+					}
 			}
 		}
 	}
+}
 
+public class Level {
+	public Queue<EnemySave> enemies;
+	public int respawnTime;
+	public Level (int time) {
+		enemies = new Queue<EnemySave> ();
+		respawnTime = time;
+	}
+}
+
+public class EnemySave {
+	public Transform transform;
+	public float xPosition;
+	public Color color; 
+
+	public int[] typeRandomizers; // if type = -1, use this
+	public int[] colorRandomizers; // if color is null, use this
+	public EnemySave () {
+		transform = null;
+		xPosition = -1;
+		color = Color.black;
+		typeRandomizers = new int[4];
+		colorRandomizers = new int[4];
+	}
+	public EnemySave (Transform transf, float x, Color c, int[] typeR, int[] colorR) {
+		transform = transf;
+		xPosition = x;
+		color = c;
+		typeRandomizers = typeR;
+		colorRandomizers = colorR;
+	}
 }
