@@ -37,13 +37,13 @@ public class LaserScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButton (0)) {
-		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		Vector3 dir = mousePos - transform.position;
-		float angle = Mathf.Atan2 (dir.y, dir.x) * Mathf.Rad2Deg;
-		transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
-
-		}
+//		if (Input.GetMouseButton (0)) {
+//		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+//		Vector3 dir = mousePos - transform.position;
+//		float angle = Mathf.Atan2 (dir.y, dir.x) * Mathf.Rad2Deg;
+//		transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
+//
+//		}
 		// Each frame, start position and angle based on how its variables were changed by the global function
 	}
 
