@@ -36,7 +36,7 @@ public class SpawnEnemyScript : MonoBehaviour {
 		thisWave = new Wave (100);
 		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 0, 1), null, null));
 		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 1, 0), null, null));
-		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (1, 0, 1), null, null)););
+		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (1, 0, 1), null, null));
 		levelQueue.Enqueue (thisWave);
 		thisWave = new Wave (300);
 		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (1, 1, 0), null, null));
