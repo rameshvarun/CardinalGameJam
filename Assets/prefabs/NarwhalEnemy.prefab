@@ -39,7 +39,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Size: {x: 1, y: 1}
   m_Center: {x: 0, y: 0}
 --- !u!114 &11400000
@@ -53,8 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce54aca4f3f08e43b6b1c3bf18ae711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 0}
-  health: 20
+  health: 1
+  explosion: {fileID: 400000, guid: 1fd3bbc64bb37c742a4b203ecf87ef31, type: 2}
   angle: 0
 --- !u!148 &14800000
 NetworkView:
@@ -63,7 +63,7 @@ NetworkView:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
-  m_StateSynchronization: 1
+  m_StateSynchronization: 0
   m_Observed: {fileID: 400000}
   m_ViewID:
     m_ID: 0

@@ -2,8 +2,6 @@
 using System.Collections;
 
 public class SharkBehavior : EnemyBehavior {
-
-	public const int maxHealth = 300;
 	public bool vicinity = false;
 	public const float fastSpeed = 0.05f; //when engaging in attack
 	public const float slowSpeed = 0.01f; //when firing slow bullets
@@ -13,7 +11,6 @@ public class SharkBehavior : EnemyBehavior {
 	
 	// Use this for initialization
 	void Start () {
-		health = maxHealth;
 		angle = Random.value * 20 + 80;
 		base.Start ();
 	}

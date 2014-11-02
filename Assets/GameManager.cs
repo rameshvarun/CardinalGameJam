@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 	/// <summary>
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour {
 	public Transform greenPlayer;
 	public Transform bluePlayer;
 
+	public int score = 0;
+
 	/// <summary>
 	/// Called on a client when it loses connection with the server.
 	/// </summary>
@@ -26,12 +29,18 @@ public class GameManager : MonoBehaviour {
 		Application.LoadLevel(0);
 	}
 
+	[RPC]
+	void AddScore(int addition) {
+		score += addition;
+	}
+
 	/// <summary>
 	/// Called on the server when it loses connection with the client.
 	/// </summary>
 	/// <param name="player">Player.</param>
 	void OnPlayerDisconnected(NetworkPlayer player) {
 		Debug.LogError("A Player disconnected.");
+		Network.Disconnect();
 		Application.LoadLevel(0);
 	}
 
@@ -85,5 +94,8 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if(Network.isServer && isLoaded) {
 		}
+
+		GameObject.Find("Score").GetComponent<Text>().text = "Score: " + score;
+		GameObject.Find("ScoreShadow").GetComponent<Text>().text = "Score: " + score;
 	}
 }

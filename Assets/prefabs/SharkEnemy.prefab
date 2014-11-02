@@ -27,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .0700000003, y: 5.67000008, z: 0}
+  m_LocalPosition: {x: 6.03737402, y: -.0470489897, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -40,9 +40,9 @@ BoxCollider2D:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Size: {x: 1, y: 1}
-  m_Center: {x: 0, y: 0}
+  m_IsTrigger: 1
+  m_Size: {x: .811296582, y: 1.70868754}
+  m_Center: {x: -.0733852386, y: -.0566111766}
 --- !u!95 &9500000
 Animator:
   serializedVersion: 3
@@ -69,8 +69,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4300ea4f31ea94593ecd6b2cc78e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 0}
-  health: 30
+  health: 1
+  score: 5
+  explosion: {fileID: 400000, guid: 1fd3bbc64bb37c742a4b203ecf87ef31, type: 2}
   vicinity: 0
   angle: 0
 --- !u!148 &14800000
@@ -80,7 +81,7 @@ NetworkView:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
-  m_StateSynchronization: 1
+  m_StateSynchronization: 2
   m_Observed: {fileID: 400000}
   m_ViewID:
     m_ID: 0

@@ -34,47 +34,41 @@ public class SpawnEnemyScript : MonoBehaviour {
 
 	Color generateRandPrimary() {
 		double randSelect = Random.value * 3;
-		Color newColor;
 		if(randSelect < 1) {
-			newColor = new Color(1,0,0);
+			return new Color(1,0,0);
 		} else if(randSelect < 2) {
-			newColor = new Color(0,1,0);
+			return new Color(0,1,0);
 		} else {
-			newColor = new Color(0,0,1);
+			return new Color(0,0,1);
 		}
-		return newColor;
 	}
 	
 	Color generateRandSecondary() {
 		double randSelect = Random.value * 3;
-		Color newColor;
 		if(randSelect < 1) {
-			newColor = new Color(1,1,0);
+			return new Color(1,1,0);
 		} else if(randSelect < 2) {
-			newColor = new Color(1,0,1);
+			return new Color(1,0,1);
 		} else {
-			newColor = new Color(0,1,1);
+			return new Color(0,1,1);
 		}
-		return newColor;
 	}
 
 	Color generateRandTertiary() {
 		double randSelect = Random.value * 6;
-		Color newColor;
 		if(randSelect < 1) {
-			newColor = new Color(1,0.5f,0);
+			return new Color(1.0f,0.5f,0);
 		} else if(randSelect < 2) {
-			newColor = new Color(0.5f,1,0);
+			return new Color(0.5f,1.0f,0);
 		} else if(randSelect < 3) {
-			newColor = new Color(1,0,0.5f);
+			return new Color(1.0f,0,0.5f);
 		} else if(randSelect < 4) {
-			newColor = new Color(0.5f,0,1);
+			return new Color(0.5f,0,1.0f);
 		} else if(randSelect < 5) {
-			newColor = new Color(0,1,0.5f);
+			return new Color(0,1.0f,0.5f);
 		} else {
-			newColor = new Color(0,0.5f,1);
+			return new Color(0,0.5f,1.0f);
 		}
-		return newColor;
 	}
 
 	Transform generateRandEnemy(int dolphin, int whale, int narwhal, int shark) {
@@ -106,8 +100,8 @@ public class SpawnEnemyScript : MonoBehaviour {
 				Transform clone = generateRandEnemy(0,1,0,1);
 				EnemyBehavior actualClone = clone.GetComponent<EnemyBehavior>();
 
-				Color col = generateRandColor(0,0,1,0);
-				actualClone.networkView.RPC("SetColor", RPCMode.All, new Vector3(col.a, col.b, col.g));
+				Color col = generateRandColor(2,1,0,0);
+				actualClone.networkView.RPC("SetColor", RPCMode.All, new Vector3(col.r, col.g, col.b));
 				//actualClone.GetComponents<SpriteRenderer>()[0].color = ;
 
 				/*EnemyBehavior dolphinClone = clone.GetComponent<>();
