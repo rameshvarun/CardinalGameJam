@@ -8,6 +8,10 @@ public class EnemyBehavior : MonoBehaviour {
 
 	public static float ACCURACY = 0.5f;
 
+	public int score;
+
+	public Transform explosion;
+
 	float colorDistance = -1;
 
 	// Use this for initialization
@@ -23,8 +27,12 @@ public class EnemyBehavior : MonoBehaviour {
 
 		if(health < 0) {
 			// Create explosion
-			// Add to score
+			Network.Instantiate(explosion, transform.position, transform.rotation, 0);
 
+			// Add to score
+			GameObject.Find("GameController").networkView.RPC("AddScore", RPCMode.All, score);
+
+			// Destroy enemy
 			Network.Destroy(networkView.viewID);
 		}
 	}
@@ -34,7 +42,9 @@ public class EnemyBehavior : MonoBehaviour {
 			int state = Mathf.FloorToInt(Time.realtimeSinceStartup * 5.0f);
 			if(state % 2 == 0) GetComponents<SpriteRenderer> () [0].enabled = false;
 			else GetComponents<SpriteRenderer> () [0].enabled = true;
-			health -= Time.deltaTime;
+
+			if(Network.isServer)
+				health -= Time.deltaTime;
 		} else {
 			GetComponents<SpriteRenderer> () [0].enabled = true;
 		}
