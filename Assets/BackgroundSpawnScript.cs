@@ -54,7 +54,6 @@ public class BackgroundSpawnScript : MonoBehaviour {
 
 	Vector3 getMiddlePosition() {
 		Vector3 position = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width/2, Screen.height/2, Camera.main.transform.position.z * -2.0f));
-		Debug.Log (Camera.main.transform.position.z * -2.0f);
 		return position;
 	}
 
