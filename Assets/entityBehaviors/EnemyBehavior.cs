@@ -5,6 +5,7 @@ using System.Collections;
 public class EnemyBehavior : MonoBehaviour {
 	public Color color;
 	public int health;
+	public const float bottomOfScreen = -6f; //approximately...
 
 	// Use this for initialization
 	public void Start () {
@@ -13,9 +14,12 @@ public class EnemyBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void Update () {
+		if (transform.position.y < bottomOfScreen) {
+			Destroy(this.gameObject);
+		}
 	}
 
-	public void fireShot(float power, Color color, Vector3 direction) {
+	public void fireBullet(float power, Color color, Vector3 direction) {
 		//spawn bullet of a certain color at certain direction
 	}
 }
