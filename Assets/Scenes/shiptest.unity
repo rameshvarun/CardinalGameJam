@@ -412,6 +412,7 @@ GameObject:
   - 92: {fileID: 842536997}
   - 124: {fileID: 842536996}
   - 81: {fileID: 842536995}
+  - 114: {fileID: 842537000}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -484,6 +485,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &842537000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 842536994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcab48d95db45a74cafb347fae1736c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalOrientation: {x: 0, y: 0, z: 0, w: 0}
+  intensity: 0
 --- !u!1 &874604704
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,6 +509,7 @@ GameObject:
   - 4: {fileID: 874604707}
   - 212: {fileID: 874604706}
   - 114: {fileID: 874604705}
+  - 61: {fileID: 874604708}
   m_Layer: 0
   m_Name: BluePlayer
   m_TagString: PlayerShip
@@ -556,6 +572,18 @@ Transform:
   - {fileID: 1761322694}
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!61 &874604708
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6100000, guid: d8122fef7532e3643a77bff26edc0cdc,
+    type: 2}
+  m_PrefabInternal: {fileID: 626053161}
+  m_GameObject: {fileID: 874604704}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: 1, y: 1.00000024}
+  m_Center: {x: 0, y: 0}
 --- !u!1001 &939197031
 Prefab:
   m_ObjectHideFlags: 0
@@ -752,6 +780,7 @@ GameObject:
   - 4: {fileID: 1175728398}
   - 212: {fileID: 1175728397}
   - 114: {fileID: 1175728396}
+  - 61: {fileID: 1175728399}
   m_Layer: 0
   m_Name: RedPlayer
   m_TagString: PlayerShip
@@ -814,6 +843,18 @@ Transform:
   - {fileID: 301982815}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!61 &1175728399
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6100000, guid: d8122fef7532e3643a77bff26edc0cdc,
+    type: 2}
+  m_PrefabInternal: {fileID: 939197031}
+  m_GameObject: {fileID: 1175728395}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: 1, y: 1.00000024}
+  m_Center: {x: 0, y: 0}
 --- !u!1 &1482061554
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,6 +865,7 @@ GameObject:
   - 4: {fileID: 1482061557}
   - 212: {fileID: 1482061556}
   - 114: {fileID: 1482061555}
+  - 61: {fileID: 1482061558}
   m_Layer: 0
   m_Name: GreenPlayer
   m_TagString: PlayerShip
@@ -886,6 +928,18 @@ Transform:
   - {fileID: 1108057068}
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!61 &1482061558
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6100000, guid: d8122fef7532e3643a77bff26edc0cdc,
+    type: 2}
+  m_PrefabInternal: {fileID: 568966742}
+  m_GameObject: {fileID: 1482061554}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: 1, y: 1.00000024}
+  m_Center: {x: 0, y: 0}
 --- !u!1001 &1576113220
 Prefab:
   m_ObjectHideFlags: 0

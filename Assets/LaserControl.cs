@@ -9,7 +9,7 @@ public class LaserControl : MonoBehaviour {
 	public Transform laserPrefab;
 	public Queue<Laser> activeLasers;
 	public Laser playerLaser; // of this client
-	public const int LASER_SPRITE_LENGTH = 100;
+	public static int LASER_SPRITE_LENGTH = 100;
 	
 	// Uses this for initialization
 	void Start () {
@@ -17,6 +17,13 @@ public class LaserControl : MonoBehaviour {
 		playerLaser = new Laser (redLaser.transform.position, Input.mousePosition, new Color(255,0,0), redLaser);
 		playerLaser.gameObject.transform.localScale = new Vector3 (10, 1, 0);
 		playerLaser.gameObject.SetActive(false);
+
+		GameObject greenLaser = GameObject.FindGameObjectWithTag ("GreenLaser");
+		GameObject blueLaser = GameObject.FindGameObjectWithTag ("BlueLaser");
+
+//		activeLasers.Enqueue (greenLaser);
+//		activeLasers.Enqueue (blueLaser);
+
 	}
 	
 	// Update is called once per frame
@@ -29,6 +36,7 @@ public class LaserControl : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			playerLaser.active = true;
 			playerLaser.gameObject.SetActive(true);
+			Camera.main.SendMessage("Shake", CameraShake.SMALL_SHAKE);
 		}
 		// If mouse is down, rotate with its parent
 		else if (Input.GetMouseButton (0)) {
@@ -57,7 +65,8 @@ public class LaserControl : MonoBehaviour {
 	}
 
 	void checkLaserCollisions() {
-
+		Queue<Laser> laserQueue = new Queue<Laser> ();
+		//laserQueue.Enqueue(
 	}
 }
 
@@ -107,6 +116,18 @@ public class Laser {
 		active = false;
 		color = aColor;
 		obj.GetComponent<SpriteRenderer>().color = aColor;
+	}
+
+	public Laser (GameObject obj) {
+		gameObject = obj;
+		startPosition = gameObject.transform.position;
+		angle = gameObject.transform.eulerAngles.z;
+		float length = gameObject.transform.localScale.x * LaserControl.LASER_SPRITE_LENGTH;
+		trajectory = new Vector3 (length, 0, 0);
+		trajectory = Quaternion.Euler (0, angle, 0) * trajectory;
+		endPosition = startPosition + trajectory;
+		color = gameObject.GetComponent<SpriteRenderer>().color;
+		active = gameObject.activeSelf;
 	}
 
 	public Vector3 getPossibleIntersectionWith(Laser laser2) {

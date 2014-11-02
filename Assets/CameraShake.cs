@@ -21,7 +21,7 @@ public class CameraShake : MonoBehaviour {
 			transform.position = originalPosition + new Vector3(Random.Range(-intensity, intensity), Random.Range(-intensity, intensity), 0);
 			transform.rotation = originalOrientation * Quaternion.AngleAxis(Random.Range(-intensity, intensity), Vector3.forward);
 
-			intensity = Mathf.Lerp(intensity, 0, 2*Time.deltaTime);
+			intensity = Mathf.Lerp(intensity, 0, 4*Time.deltaTime);
 		} else {
 			transform.position = originalPosition;
 			transform.rotation = originalOrientation;
