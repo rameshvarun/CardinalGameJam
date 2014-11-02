@@ -58,7 +58,7 @@ public class LaserControl : MonoBehaviour {
 	void Update () {
 		if(redLaser == null || redLaser.gameObject == null || greenLaser == null || greenLaser.gameObject == null || blueLaser == null || blueLaser.gameObject == null) GetLaserPointers();
 		else {
-			updatePlayerLaser ();
+			updateLasers ();
 			checkLaserCollisions ();
 		}
 	}
@@ -119,35 +119,26 @@ public class LaserControl : MonoBehaviour {
 		}
 	}
 
-	void updatePlayerLaser() {
+	void updateLasers () {
 		if (Input.GetMouseButtonDown (0)) {
 			ActivateMyLaser();
+		} else if (Input.GetMouseButtonUp (0)) {
+			StopMyLaser ();
 		}
-		// If mouse is down, rotate with its parent
-		else if (Input.GetMouseButton (0)) {
-			if (playerLaser.active) {
-//				Vector3 dir = mousePos - playerLaser.gameObject.transform.position;
-//				Debug.Log (dir.x);
-				//float angle = Mathf.Atan2 (dir.y, dir.x) * Mathf.Rad2Deg;
-				Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-				mousePos.z = 0;
-				float angle = playerLaser.gameObject.transform.parent.gameObject.transform.rotation.eulerAngles.z;
-				playerLaser.setAngle(angle);
-				playerLaser.setTrajectoryAndEndPositionFromAngle ();
-				playerLaser.setAlphaByDistance(Vector3.Distance(mousePos, playerLaser.startPosition));
-			}
-		}
-		else {
-			StopMyLaser();
-		}
+		turnLaser(redLaser);
+		turnLaser(greenLaser);
+		turnLaser(blueLaser);
+	}
 
-// 		Code for instantiating a new laser, if we do that:
+	void turnLaser(Laser laser) {
+		if (laser.active) {
 //			Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-//			Vector3 dir = mousePos - testShipLocation;
-//			float angle = Mathf.Atan2 (dir.y, dir.x) * Mathf.Rad2Deg;
-//			Transform newLaser = Instantiate (laserPrefab, testShipLocation, Quaternion.identity) as Transform;
-//			newLaser.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
-//			newLaser.localScale = new Vector3(8,1,0);
+//			mousePos.z = 0;
+			float angle = playerLaser.gameObject.transform.parent.gameObject.transform.rotation.eulerAngles.z;
+			redLaser.setAngle(angle);
+			redLaser.setTrajectoryAndEndPositionFromAngle ();
+//			redLaser.setAlphaByDistance(Vector3.Distance(mousePos, playerLaser.startPosition));
+		}
 	}
 
 	void checkLaserCollisions() {
