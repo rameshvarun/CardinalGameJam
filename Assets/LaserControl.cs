@@ -23,6 +23,8 @@ public class LaserControl : MonoBehaviour {
 	public static int LASER_SPRITE_LENGTH = 100;
 	
 	public static float MAX_STRENGTH_DISTANCE = 6;
+
+	public AudioClip shoot;
 	
 	// Uses this for initialization
 	void Start () {
@@ -81,6 +83,7 @@ public class LaserControl : MonoBehaviour {
 		laser.active = true;
 		laser.gameObject.SetActive(true);
 		Camera.main.SendMessage("Shake", CameraShake.SMALL_SHAKE);
+		AudioSource.PlayClipAtPoint(shoot, transform.position);
 	}
 	
 	/// <summary>
