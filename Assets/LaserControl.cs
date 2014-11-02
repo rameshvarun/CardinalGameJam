@@ -80,7 +80,7 @@ public class LaserControl : MonoBehaviour {
 				//float angle = Mathf.Atan2 (dir.y, dir.x) * Mathf.Rad2Deg;
 				Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 				mousePos.z = 0;
-				float angle = playerLaser.gameObject.transform.parent.gameObject.transform.rotation.eulerAngles.z;
+				float angle = playerLaser.gameObject.transform.parent.gameObject.transform.Find("player_ship_turret").transform.rotation.eulerAngles.z;
 				playerLaser.setAngle(angle);
 				playerLaser.setTrajectoryAndEndPositionFromAngle ();
 				playerLaser.setAlphaByDistance(Vector3.Distance(mousePos, playerLaser.startPosition));
