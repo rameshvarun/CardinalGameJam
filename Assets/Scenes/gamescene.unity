@@ -282,6 +282,7 @@ GameObject:
   - 114: {fileID: 1820853090}
   - 148: {fileID: 1820853089}
   - 114: {fileID: 1820853091}
+  - 114: {fileID: 1820853092}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -342,3 +343,14 @@ MonoBehaviour:
   sharkEnemy: {fileID: 400000, guid: 0c4a9e7f94cce524bbc36738d7918713, type: 2}
   narwhalEnemy: {fileID: 400000, guid: 0e1f58d1157199e43ad7c65c868fa5ba, type: 2}
   whaleEnemy: {fileID: 400000, guid: fee07d47cabd29743b5bffae0295ff56, type: 2}
+--- !u!114 &1820853092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1820853087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b585878aff45b9c4a9f7a1729b12b0c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
