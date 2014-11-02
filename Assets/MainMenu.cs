@@ -45,7 +45,9 @@ public class MainMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Network.Disconnect();
 		Application.runInBackground = true;
+		if(GameManager.name != null) Highscore();
 	}
 
 	int dots = 0;
@@ -115,6 +117,34 @@ public class MainMenu : MonoBehaviour {
 		} else {
 			GameObject.Find("LobbyStatus").GetComponentInChildren<Text>().text = "";
 		}
+
+		GameObject.Find("PositionText").GetComponent<Text>().text = "";
+		GameObject.Find("Table").GetComponent<Text>().text = "";
+		if(state == MenuState.Highscores) {
+
+			if(request == null)
+				request = new WWW("http://varunramesh.net:5000/");
+			else if(request.isDone) {
+				string result = System.Text.Encoding.UTF8.GetString(request.bytes);
+
+				string table = "Highscores:\n";
+
+				string[] lines = result.Split('\n');
+				for(int i = 0; i < lines.Length; ++i) {
+					int num = i + 1;
+					string[] parts = lines[i].Split();
+					if(parts.Length != 2) continue;
+					if(parts[1] == GameManager.name) {
+						GameObject.Find("PositionText").GetComponent<Text>().text = "Name: " + parts[1] + ", Score: " + parts[0] + ", Position: " + num;
+					}
+
+					if(num <= 6) {
+						table += num.ToString() + ". " + parts[1] + " - " + parts[0] + "\n";
+					}
+				}
+				GameObject.Find("Table").GetComponent<Text>().text = table;
+			}
+		}
 	}
 
 	void JoinGame() {
@@ -136,8 +166,10 @@ public class MainMenu : MonoBehaviour {
 		Application.LoadLevel(1);
 	}
 
+	private WWW request = null;
 	void Highscore() {
 		nextState = MenuState.Highscores;
+		request = null;
 	}
 
 	void Back() {

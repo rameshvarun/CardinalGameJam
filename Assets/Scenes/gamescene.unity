@@ -738,6 +738,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
+--- !u!1 &856970703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 856970706}
+  - 222: {fileID: 856970705}
+  - 114: {fileID: 856970704}
+  m_Layer: 5
+  m_Name: Fader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &856970704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 856970703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Mat: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &856970705
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 856970703}
+--- !u!224 &856970706
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 856970703}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.26414216, y: 1.26414192, z: 1.26414192}
+  m_Children: []
+  m_Father: {fileID: 2089701439}
+  m_RootOrder: 5
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: .5, y: .5}
 --- !u!1 &905292317
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,7 +1790,11 @@ MonoBehaviour:
   redPlayer: {fileID: 400000, guid: cf885987b60e7064bbd45a25c95cc9dc, type: 2}
   greenPlayer: {fileID: 400000, guid: d593d7956cb2b284ca60bd62796b3b38, type: 2}
   bluePlayer: {fileID: 400000, guid: e6408b364b24736488f43dbb5553868c, type: 2}
+  ended: 0
+  win: 0
   score: 0
+  fader: {fileID: 856970706}
+  explosion: {fileID: 400000, guid: 1fd3bbc64bb37c742a4b203ecf87ef31, type: 2}
 --- !u!114 &1820853091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1900,6 +1965,7 @@ RectTransform:
   - {fileID: 1770197540}
   - {fileID: 1469948418}
   - {fileID: 905292318}
+  - {fileID: 856970706}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_AnchorMin: {x: 0, y: 0}
