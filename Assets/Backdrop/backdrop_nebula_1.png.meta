@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 9ed6329a694d8cc448f3ff805d2ae46d
+guid: 266afcce4bfecc24cba9cc538b9709fb
 TextureImporter:
   fileIDToRecycleName:
-    21300000: backdrop_stars
+    21300000: backdrop_nebula_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -26,9 +26,9 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-    aniso: 1
+    aniso: -1
     mipBias: -1
-    wrapMode: 1
+    wrapMode: -1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
