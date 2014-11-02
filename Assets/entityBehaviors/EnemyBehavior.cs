@@ -69,6 +69,15 @@ public class EnemyBehavior : MonoBehaviour {
 			colorDistance = Vector3.Distance (colorVector, colorVector2);
 			//health -= (int)(Mathf.Ceil (10 / Mathf.Max (1, colorDistance)));
 		}
+		if(other.tag == "PlayerShip") {
+			other.networkView.RPC("Hit", RPCMode.All);
+
+			// Create explosion
+			Network.Instantiate(explosion, transform.position, transform.rotation, 0);
+
+			// Destroy enemy
+			Network.Destroy(networkView.viewID);
+		}
     }
 
 	bool isLaser(string tag) {

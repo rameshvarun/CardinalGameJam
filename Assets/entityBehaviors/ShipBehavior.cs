@@ -15,6 +15,9 @@ public class ShipBehavior : MonoBehaviour {
 
 	public static float DEAD_ZONE = 0.15f;
 
+	public int lives = 3;
+	public float hitTimer = 0;
+
 	// Use this for initialization
 	void Start () {
 		health = maxHealth;
@@ -32,9 +35,46 @@ public class ShipBehavior : MonoBehaviour {
 		transform.position = position;
 	}
 
+	[RPC]
+	void Hit() {
+		if(hitTimer < 0.0f) {
+			hitTimer = 3.0f;
+			lives--;
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
 
+		hitTimer -= Time.deltaTime;
+		if(hitTimer > 0.0f) {
+			int state = Mathf.FloorToInt(hitTimer * 2.0f);
+			if(state % 2 == 0) {
+				this.GetComponent<SpriteRenderer>().enabled = true;
+			} else {
+				this.GetComponent<SpriteRenderer>().enabled = false;
+			}
+		} else {
+			this.GetComponent<SpriteRenderer>().enabled = true;
+		}
+
+		if(lives < 3) {
+			transform.Find("life3").gameObject.SetActive(false);
+		}
+
+		if(lives < 2) {
+			transform.Find("life2").gameObject.SetActive(false);
+		}
+
+		if(lives < 1) {
+			transform.Find("life1").gameObject.SetActive(false);
+		}
+
+		if(lives < 0) {
+			// End game
+		}
+		
+		
 		if(networkView.isMine) {
 			Vector3 oldPos = transform.position;
 
