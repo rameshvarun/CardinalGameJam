@@ -10,13 +10,15 @@ public class ShipBehavior : MonoBehaviour {
 	public float rotationAngle;
 	public float targetAngle;
 	public float rotateSpeed = 2f;
-	public float threshold = 10f;
+	public const float angleThreshold = 10f;
+	public float travelAngle;
 
 	// Use this for initialization
 	void Start () {
 		health = maxHealth;
 		targetAngle = 90f;
 		rotationAngle = 90f;
+		travelAngle = 0f;
 
 		//retrieve data about the player
 		rotationAngle = transform.rotation.eulerAngles.z;
@@ -29,7 +31,7 @@ public class ShipBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//Detect mouse clicks
-		if (Input.GetMouseButtonDown (0)) { //left click
+		if (Input.GetMouseButton (0)) { //left click
 			//Only detect player
 			if(isPlayer) {
 				Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -37,12 +39,12 @@ public class ShipBehavior : MonoBehaviour {
 					targetAngle = 180.0f / Mathf.PI * Mathf.Atan ((mousePos.y - this.transform.position.y) / (mousePos.x - this.transform.position.x));
 				else
 					targetAngle = 180.0f + 180.0f / Mathf.PI * Mathf.Atan ((mousePos.y - this.transform.position.y) / (mousePos.x - this.transform.position.x));
-				Debug.Log (targetAngle);
+				travelAngle = targetAngle - rotationAngle;
 			}
 		}
 
 		//Rotate objects
-		if (Mathf.Abs (rotationAngle - targetAngle) > threshold) {
+		if (Mathf.Abs (rotationAngle - targetAngle) > angleThreshold) {
 			if(rotationAngle > targetAngle) {
 				transform.Rotate (new Vector3 (0, 0, -rotateSpeed));
 				rotationAngle -= rotateSpeed;
