@@ -14,7 +14,7 @@ public class EnemyBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void Update () {
-		if (transform.position.y < bottomOfScreen) {
+		if (transform.position.y < bottomOfScreen || health <= 0) {
 			Destroy(this.gameObject);
 		}
 	}
@@ -27,4 +27,19 @@ public class EnemyBehavior : MonoBehaviour {
 	public void SetColor(Vector3 color) {
 		GetComponents<SpriteRenderer>()[0].color = new Color(color.x, color.y, color.z);
 	}
+
+	void OnCollisionStay2D(Collision2D coll) {
+		if (isLaser(coll.gameObject.tag) {
+			Color color2 = coll.gameObject.GetComponent<SpriteRenderer> ().color;
+			Vector3 colorVector = new Vector3 (color.r, color.g, color.b);
+			Vector3 colorVector2 = new Vector3 (color2.r, color2.g, color2.b);
+			float colorDistance = Vector3.Distance (colorVector, colorVector2);
+			health -= (int)(Mathf.Ceil (10 / Mathf.Max (1, colorDistance)));
+		}
+    }
+
+	bool isLaser(string tag) {
+		return (tag == "RedLaser" || tag == "GreenLaser" || tag == "BlueLaser" || tag == "YellowLaser" || tag == "MagentaLaser" || tag == "CyanLaser" || tag == "WhiteLaser");
+	}
 }
+
