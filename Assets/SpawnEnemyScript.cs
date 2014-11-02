@@ -24,18 +24,19 @@ public class SpawnEnemyScript : MonoBehaviour {
 		levelQueue = new Queue<Wave> ();
 		// One red
 		Wave thisWave = new Wave (300);
-		thisWave.enemies.Enqueue(new EnemySave (whaleEnemy, -1, new Color (1, 0, 0), null, null));
+		thisWave.enemies.Enqueue(new EnemySave (narwhalEnemy, widthOfScreen/3, new Color (0, 1, 0), null, null));
 		levelQueue.Enqueue (thisWave);
 
 		// One of each of the others
 		thisWave = new Wave (200);
-		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 0, 1), null, null));
-		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 1, 0), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, widthOfScreen/4, new Color (0, 0, 1), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, widthOfScreen*3/4, new Color (1, 0, 0), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, widthOfScreen/2, new Color (1, 0, 1), null, null));
 		levelQueue.Enqueue (thisWave);
 
 		thisWave = new Wave (100);
 		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 0, 1), null, null));
-		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 1, 0), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (narwhalEnemy, -1, new Color (0, 1, 0), null, null));
 		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (1, 0, 1), null, null));
 		levelQueue.Enqueue (thisWave);
 		thisWave = new Wave (300);
