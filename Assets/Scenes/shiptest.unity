@@ -133,7 +133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
 --- !u!4 &10795080
 Transform:
   m_ObjectHideFlags: 0
@@ -1057,6 +1056,7 @@ GameObject:
   - 212: {fileID: 874604706}
   - 114: {fileID: 874604705}
   - 61: {fileID: 874604708}
+  - 148: {fileID: 874604709}
   m_Layer: 0
   m_Name: BluePlayer
   m_TagString: PlayerShip
@@ -1131,6 +1131,19 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_Size: {x: 1, y: 1.00000024}
   m_Center: {x: 0, y: 0}
+--- !u!148 &874604709
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: d8122fef7532e3643a77bff26edc0cdc,
+    type: 2}
+  m_PrefabInternal: {fileID: 626053161}
+  m_GameObject: {fileID: 874604704}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 874604707}
+  m_ViewID:
+    m_ID: 2
+    m_Type: 1
 --- !u!1001 &907172018
 Prefab:
   m_ObjectHideFlags: 0
@@ -1375,7 +1388,6 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!1 &1108057066
@@ -1440,6 +1452,7 @@ GameObject:
   - 212: {fileID: 1175728397}
   - 114: {fileID: 1175728396}
   - 61: {fileID: 1175728399}
+  - 148: {fileID: 1175728400}
   m_Layer: 0
   m_Name: RedPlayer
   m_TagString: PlayerShip
@@ -1514,6 +1527,19 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_Size: {x: 1, y: 1.00000024}
   m_Center: {x: 0, y: 0}
+--- !u!148 &1175728400
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: d8122fef7532e3643a77bff26edc0cdc,
+    type: 2}
+  m_PrefabInternal: {fileID: 939197031}
+  m_GameObject: {fileID: 1175728395}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 1175728398}
+  m_ViewID:
+    m_ID: 1
+    m_Type: 1
 --- !u!1 &1482061554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,6 +1551,7 @@ GameObject:
   - 212: {fileID: 1482061556}
   - 114: {fileID: 1482061555}
   - 61: {fileID: 1482061558}
+  - 148: {fileID: 1482061559}
   m_Layer: 0
   m_Name: GreenPlayer
   m_TagString: PlayerShip
@@ -1599,6 +1626,19 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_Size: {x: 1, y: 1.00000024}
   m_Center: {x: 0, y: 0}
+--- !u!148 &1482061559
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: d8122fef7532e3643a77bff26edc0cdc,
+    type: 2}
+  m_PrefabInternal: {fileID: 568966742}
+  m_GameObject: {fileID: 1482061554}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 1482061557}
+  m_ViewID:
+    m_ID: 3
+    m_Type: 1
 --- !u!1001 &1576113220
 Prefab:
   m_ObjectHideFlags: 0
