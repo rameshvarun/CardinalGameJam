@@ -79,6 +79,8 @@ public class GameManager : MonoBehaviour {
 			Network.Instantiate(greenPlayer, GameObject.Find("GreenSpawn").transform.position, Quaternion.identity, 0);
 			break;
 		}
+
+		GetComponent<LaserControl>().enabled = true;
 	}
 	
 	// Update is called once per frame
