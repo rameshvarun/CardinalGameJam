@@ -24,13 +24,6 @@ public class LaserControl : MonoBehaviour {
 	
 	// Uses this for initialization
 	void Start () {
-		redLaser = new Laser (GameObject.FindGameObjectWithTag ("RedLaser"));
-		greenLaser = new Laser (GameObject.FindGameObjectWithTag ("GreenLaser"));
-		blueLaser = new Laser (GameObject.FindGameObjectWithTag ("BlueLaser"));
-		yellowLaser = new Laser (GameObject.FindGameObjectWithTag ("YellowLaser"));
-		magentaLaser = new Laser (GameObject.FindGameObjectWithTag ("MagentaLaser"));
-		cyanLaser = new Laser (GameObject.FindGameObjectWithTag ("CyanLaser"));
-		whiteLaser = new Laser (GameObject.FindGameObjectWithTag ("WhiteLaser"));
 
 		if(MainMenu.myColor == ShipColor.Red)
 			playerLaser = redLaser;
@@ -49,11 +42,24 @@ public class LaserControl : MonoBehaviour {
 //		activeLasers.Enqueue (blueLaser);
 
 	}
+
+	void GetLaserPointers() {
+		redLaser = new Laser (GameObject.FindGameObjectWithTag ("RedLaser"));
+		greenLaser = new Laser (GameObject.FindGameObjectWithTag ("GreenLaser"));
+		blueLaser = new Laser (GameObject.FindGameObjectWithTag ("BlueLaser"));
+		yellowLaser = new Laser (GameObject.FindGameObjectWithTag ("YellowLaser"));
+		magentaLaser = new Laser (GameObject.FindGameObjectWithTag ("MagentaLaser"));
+		cyanLaser = new Laser (GameObject.FindGameObjectWithTag ("CyanLaser"));
+		whiteLaser = new Laser (GameObject.FindGameObjectWithTag ("WhiteLaser"));
+	}
 	
 	// Update is called once per frame
 	void Update () {
-		updatePlayerLaser ();
-		checkLaserCollisions ();
+		if(redLaser == null) GetLaserPointers();
+		else {
+			updatePlayerLaser ();
+			checkLaserCollisions ();
+		}
 	}
 
 	void ActivateLaser(Laser laser) {
