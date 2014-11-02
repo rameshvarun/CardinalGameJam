@@ -25,6 +25,6 @@ public class EnemyBehavior : MonoBehaviour {
 
 	[RPC]
 	public void SetColor(Vector3 color) {
-		GetComponents<SpriteRenderer>()[0].color = new Color(color.x, color.y, color.z);
+		GetComponents<SpriteRenderer>()[0].color = new Color(color.x, color.y, color.z, 1.0f);
 	}
 }
