@@ -84,22 +84,33 @@ public class LaserControl : MonoBehaviour {
 
 	void checkLaserCollisions() {
 
+		redLaser.setTrajectoryAndEndPositionFromAngle ();
+		greenLaser.setTrajectoryAndEndPositionFromAngle ();
+		blueLaser.setTrajectoryAndEndPositionFromAngle ();
+		Debug.Log ("Before: " + cyanLaser.endPosition);
+
+		cyanLaser.setTrajectoryAndEndPositionFromAngle ();
+		Debug.Log ("After: " + cyanLaser.endPosition);
+
+		magentaLaser.setTrajectoryAndEndPositionFromAngle ();
+		yellowLaser.setTrajectoryAndEndPositionFromAngle ();
+		
 		Vector3 redGreenCollision = redLaser.getIntersectionWith(greenLaser);
 		Vector3 redBlueCollision = redLaser.getIntersectionWith(blueLaser);
 		Vector3 greenBlueCollision = greenLaser.getIntersectionWith(blueLaser);
 
 		// Matt debugging:
-		Vector3 redGreenPC = redLaser.getPossibleIntersectionWith(greenLaser);
-		Vector3 redBluePC = redLaser.getPossibleIntersectionWith(blueLaser);
-		Vector3 greenBluePC = greenLaser.getPossibleIntersectionWith(blueLaser);
-
-		GameObject rgc = GameObject.FindGameObjectWithTag ("RedGreenCollision");
-		GameObject rbc = GameObject.FindGameObjectWithTag ("RedBlueCollision");
-		GameObject bgc = GameObject.FindGameObjectWithTag ("BlueGreenCollision");
-
-		rgc.transform.position = redGreenPC;
-		rbc.transform.position = redBluePC;
-		bgc.transform.position = greenBluePC;
+//		Vector3 redGreenPC = redLaser.getPossibleIntersectionWith(greenLaser);
+//		Vector3 redBluePC = redLaser.getPossibleIntersectionWith(blueLaser);
+//		Vector3 greenBluePC = greenLaser.getPossibleIntersectionWith(blueLaser);
+//
+//		GameObject rgc = GameObject.FindGameObjectWithTag ("RedGreenCollision");
+//		GameObject rbc = GameObject.FindGameObjectWithTag ("RedBlueCollision");
+//		GameObject bgc = GameObject.FindGameObjectWithTag ("BlueGreenCollision");
+//
+//		rgc.transform.position = redGreenPC;
+//		rbc.transform.position = redBluePC;
+//		bgc.transform.position = greenBluePC;
 
 //		Debug.Log (redLaser.getPossibleIntersectionWith(greenLaser).x);
 
@@ -111,19 +122,25 @@ public class LaserControl : MonoBehaviour {
 		if (redToGreenDist <= redToBlueDist) {
 //			Debug.Log ("R to G Distance: " + redToGreenDist + ", R to B Distance: " + redToBlueDist + ", B to G Dist: " + blueToGreenDist);
 
-//			Debug.Log("Cyan!");
 			if (blueToGreenDist < redToGreenDist) {
+				// Cyan!
+//				Debug.Log ("Cyan!");
 				cyanLaser.activateAt(greenBlueCollision);
 				cyanLaser.setAngle((greenLaser.angle + blueLaser.angle)/2);
 				magentaLaser.deactivate();
 				yellowLaser.deactivate();
 
+				greenLaser.setEndPosition(greenBlueCollision);
+				blueLaser.setEndPosition(greenBlueCollision);
+
 				if (cyanLaser.doesIntersectWith(redLaser)) {
 					whiteLaser.setAngle((2*cyanLaser.angle + redLaser.angle)/3);
-					whiteLaser.activateAt(cyanLaser.getIntersectionWith(redLaser));
-
-//					Debug.Log("Red : " + redLaser.gameObject.transform.localScale.x + " + Start position: " + startPosition.x + "," + startPosition.y);
-					Debug.Log("End position: " + redLaser.endPosition.x + "," + redLaser.endPosition.y);
+					Vector3 whiteCollision = cyanLaser.getIntersectionWith(redLaser);
+					whiteLaser.activateAt(whiteCollision);
+				
+					cyanLaser.setEndPosition(whiteCollision);
+					Debug.Log (cyanLaser.endPosition);
+					redLaser.setEndPosition(whiteCollision);
 				}
 				else {
 					whiteLaser.deactivate();
@@ -131,14 +148,22 @@ public class LaserControl : MonoBehaviour {
 			}
 			else {
 //				Debug.Log("Yellow!");
+
 				yellowLaser.activateAt(redGreenCollision);
 				yellowLaser.setAngle((greenLaser.angle + redLaser.angle)/2);
 				magentaLaser.deactivate();
 				cyanLaser.deactivate();
+
+				greenLaser.setEndPosition(redGreenCollision);
+				redLaser.setEndPosition(redGreenCollision);
 				
 				if (yellowLaser.doesIntersectWith(blueLaser)) {
 					whiteLaser.setAngle((2*yellowLaser.angle + blueLaser.angle)/3);
-					whiteLaser.activateAt(yellowLaser.getIntersectionWith(blueLaser));
+					Vector3 whiteCollision = yellowLaser.getIntersectionWith(blueLaser);
+					whiteLaser.activateAt(whiteCollision);
+					
+					yellowLaser.setEndPosition(whiteCollision);
+					blueLaser.setEndPosition(whiteCollision);
 				}
 				else {
 					whiteLaser.deactivate();
@@ -149,17 +174,25 @@ public class LaserControl : MonoBehaviour {
 		// Red/green collision farthest -> Magenta or Cyan
 		else {
 			// Cyan!
-			Debug.Log ("Cyan!");
+//			Debug.Log ("Cyan!");
 			if (blueToGreenDist < redToBlueDist) {
 				cyanLaser.activateAt(greenBlueCollision);
 				cyanLaser.setAngle((greenLaser.angle + blueLaser.angle)/2);
 				magentaLaser.deactivate();
 				yellowLaser.deactivate();
+
+				greenLaser.setEndPosition(greenBlueCollision);
+				blueLaser.setEndPosition(greenBlueCollision);
 				
 				if (cyanLaser.doesIntersectWith(redLaser)) {
 					whiteLaser.setAngle((2*cyanLaser.angle + redLaser.angle)/3);
-					whiteLaser.activateAt(cyanLaser.getIntersectionWith(redLaser));
-					Debug.Log("End position: " + redLaser.endPosition.x + "," + redLaser.endPosition.y);
+					Vector3 whiteCollision = cyanLaser.getIntersectionWith(redLaser);
+					whiteLaser.activateAt(whiteCollision);
+					
+					cyanLaser.setEndPosition(whiteCollision);
+					redLaser.setEndPosition(whiteCollision);
+
+					Debug.Log (cyanLaser.endPosition);
 
 				}
 				else {
@@ -173,10 +206,17 @@ public class LaserControl : MonoBehaviour {
 				magentaLaser.setAngle((blueLaser.angle + redLaser.angle)/2);
 				yellowLaser.deactivate();
 				cyanLaser.deactivate();
+
+				redLaser.setEndPosition(redBlueCollision);
+				blueLaser.setEndPosition(redBlueCollision);
 				
 				if (magentaLaser.doesIntersectWith(greenLaser)) {
 					whiteLaser.setAngle((2*magentaLaser.angle + greenLaser.angle)/3);
-					whiteLaser.activateAt(magentaLaser.getIntersectionWith(greenLaser));
+					Vector3 whiteCollision = magentaLaser.getIntersectionWith(greenLaser);
+					whiteLaser.activateAt(whiteCollision);
+					
+					magentaLaser.setEndPosition(whiteCollision);
+					greenLaser.setEndPosition(whiteCollision);
 				}
 				else {
 					whiteLaser.deactivate();
@@ -250,11 +290,17 @@ public class Laser {
 		active = gameObject.activeSelf;
 	}
 
+	public void setEndPosition(Vector3 pos) {
+		endPosition = pos;
+		gameObject.transform.localScale = new Vector3(Vector3.Distance (startPosition, endPosition), 1, 1);
+	}
+
 	public void setTrajectoryAndEndPositionFromAngle() {
-		float length = gameObject.transform.localScale.x;// * LaserControl.LASER_SPRITE_LENGTH;
+		//float length = gameObject.transform.localScale.x;// * LaserControl.LASER_SPRITE_LENGTH;
+		float length = 15;
 		trajectory = new Vector3 (length, 0, 0);
 		trajectory = Quaternion.Euler (0, 0, angle) * trajectory;
-		endPosition = startPosition + trajectory;
+		setEndPosition(startPosition + trajectory);
 	}
 	public void activateAt(Vector3 startPos) {
 		active = true;

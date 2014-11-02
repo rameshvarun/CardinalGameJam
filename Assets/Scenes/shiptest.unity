@@ -207,7 +207,7 @@ GameObject:
   - 4: {fileID: 79741524}
   - 212: {fileID: 79741523}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Collision Test Sprite
   m_TagString: RedGreenCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,7 +243,7 @@ Transform:
   m_PrefabInternal: {fileID: 907172018}
   m_GameObject: {fileID: 79741522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.93279982, y: -.677389979, z: 0}
+  m_LocalPosition: {x: 4.93279982, y: -5.68650007, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -520,7 +520,7 @@ GameObject:
   - 4: {fileID: 404870457}
   - 212: {fileID: 404870456}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Collision Test Sprite
   m_TagString: BlueGreenCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -556,7 +556,7 @@ Transform:
   m_PrefabInternal: {fileID: 296855944}
   m_GameObject: {fileID: 404870455}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.93279982, y: -.677389979, z: 0}
+  m_LocalPosition: {x: 4.93279982, y: -5.8835001, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -686,7 +686,7 @@ GameObject:
   - 4: {fileID: 548658610}
   - 212: {fileID: 548658609}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Collision Test Sprite
   m_TagString: RedBlueCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -722,7 +722,7 @@ Transform:
   m_PrefabInternal: {fileID: 934430066}
   m_GameObject: {fileID: 548658608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.93279982, y: -.677389979, z: 0}
+  m_LocalPosition: {x: 4.93279982, y: -6.1086998, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1430,8 +1430,8 @@ Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
   m_PrefabInternal: {fileID: 1587482405}
   m_GameObject: {fileID: 1108057066}
-  m_LocalRotation: {x: 0, y: 0, z: -.000691592693, w: .999999821}
-  m_LocalPosition: {x: -.163059995, y: .106129996, z: .100000001}
+  m_LocalRotation: {x: 0, y: 0, z: -.183337733, w: .983049989}
+  m_LocalPosition: {x: -.178039998, y: .197029993, z: .100000001}
   m_LocalScale: {x: 3.60533094, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1482061557}
@@ -1663,11 +1663,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -.163059995
+      value: -.178039998
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .106129996
+      value: .197029993
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1683,11 +1683,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -.000691592693
+      value: -.183337733
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
       propertyPath: m_LocalRotation.w
-      value: .999999821
+      value: .983049989
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
       propertyPath: m_RootOrder
