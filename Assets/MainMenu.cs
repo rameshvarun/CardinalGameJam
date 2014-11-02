@@ -47,6 +47,9 @@ public class MainMenu : MonoBehaviour {
 	void Start () {
 		Application.runInBackground = true;
 	}
+
+	int dots = 0;
+	float dotTimer = 0;
 	
 	// Update is called once per frame
 	void Update () {
@@ -76,6 +79,30 @@ public class MainMenu : MonoBehaviour {
 			GamePanel.gameObject.SetActive(true);
 		} else {
 			GamePanel.gameObject.SetActive(false);
+		}
+
+		if(state == MenuState.Lobby) {
+			dotTimer += Time.deltaTime;
+			if(dotTimer > 1.0f) {
+				++dots;
+				dotTimer = 0.0f;
+			}
+
+			string dotsText = "";
+			for(int i = 0; i < dots % 4; ++ i)
+				dotsText += ".";
+
+			if(players < GameManager.NUM_PLAYERS)
+				GameObject.Find("LobbyStatus").GetComponentInChildren<Text>().text = "Waiting for " + (GameManager.NUM_PLAYERS - players) + " players" + dotsText;
+			else {
+				if(Network.isServer) {
+					GameObject.Find("LobbyStatus").GetComponentInChildren<Text>().text = "Waiting to launch" + dotsText;
+				} else {
+					GameObject.Find("LobbyStatus").GetComponentInChildren<Text>().text = "Waiting for host" + dotsText;
+				}
+			}
+		} else {
+			GameObject.Find("LobbyStatus").GetComponentInChildren<Text>().text = "";
 		}
 	}
 
@@ -187,11 +214,11 @@ public class MainMenu : MonoBehaviour {
 
 
 		if(state == MenuState.Lobby) {
-			if(Network.isServer) {
+			/*if(Network.isServer) {
 				GUILayout.Label("You are hosting.");
 			} else {
 				GUILayout.Label("You are not hosting.");
-			}
+			}*/
 
 			GUILayout.Label(players.ToString());
 
