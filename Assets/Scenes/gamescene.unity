@@ -338,6 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyCounter: 0
   respawnTime: 300
-  topOfScreen: 6
-  widthOfScreen: 6
   dolphinEnemy: {fileID: 400000, guid: e23e711e0fff31f40abc6c49b478458d, type: 2}
+  sharkEnemy: {fileID: 400000, guid: 0c4a9e7f94cce524bbc36738d7918713, type: 2}
+  narwhalEnemy: {fileID: 400000, guid: 0e1f58d1157199e43ad7c65c868fa5ba, type: 2}
+  whaleEnemy: {fileID: 400000, guid: fee07d47cabd29743b5bffae0295ff56, type: 2}
