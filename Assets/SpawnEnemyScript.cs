@@ -103,7 +103,7 @@ public class SpawnEnemyScript : MonoBehaviour {
 
 			int numEnemies = 4;
 			for(int i = 0; i < numEnemies; i++) {
-				Transform clone = generateRandEnemy(0,0,0,1);
+				Transform clone = generateRandEnemy(0,1,0,1);
 				EnemyBehavior actualClone = clone.GetComponent<EnemyBehavior>();
 
 				Color col = generateRandColor(0,0,1,0);
