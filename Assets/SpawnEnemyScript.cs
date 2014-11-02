@@ -7,7 +7,7 @@ public class SpawnEnemyScript : MonoBehaviour {
 
 	public int enemyCounter = 0;
 	public int respawnTime = 300; //every 5 seconds
-	public Queue<Level> levelQueue;
+	public Queue<Wave> levelQueue;
 	public const float topOfScreen = 6f;
 	public const float widthOfScreen = 6f;
 
@@ -21,24 +21,26 @@ public class SpawnEnemyScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		levelQueue = new Queue<Level> ();
+		levelQueue = new Queue<Wave> ();
 		// One red
-		Level thisLevel = new Level (300);
-		thisLevel.enemies.Enqueue(new EnemySave (whaleEnemy, -1, new Color (255, 0, 0), null, null));
-		levelQueue.Enqueue (thisLevel);
+		Wave thisWave = new Wave (300);
+		thisWave.enemies.Enqueue(new EnemySave (whaleEnemy, -1, new Color (1, 0, 0), null, null));
+		levelQueue.Enqueue (thisWave);
 
 		// One of each of the others
-		thisLevel = new Level (200);
-		thisLevel.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 0, 255), null, null));
-		thisLevel.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 255, 0), null, null));
-		levelQueue.Enqueue (thisLevel);
+		thisWave = new Wave (200);
+		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 0, 1), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 1, 0), null, null));
+		levelQueue.Enqueue (thisWave);
 
-		thisLevel = new Level (300);
-		thisLevel.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 0, 255), null, null));
-		thisLevel.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 255, 0), null, null));
-		thisLevel.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (255, 0, 255), null, null));
-		thisLevel.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (255, 255, 0), null, null));
-		levelQueue.Enqueue (thisLevel);
+		thisWave = new Wave (100);
+		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 0, 1), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (0, 1, 0), null, null));
+		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (1, 0, 1), null, null)););
+		levelQueue.Enqueue (thisWave);
+		thisWave = new Wave (300);
+		thisWave.enemies.Enqueue (new EnemySave (whaleEnemy, -1, new Color (1, 1, 0), null, null));
+		levelQueue.Enqueue (thisWave);
 
 	}
 
@@ -140,9 +142,9 @@ public class SpawnEnemyScript : MonoBehaviour {
 					// Final boss!
 				}
 				else {
-					Level thisLevel = levelQueue.Dequeue();
-					while (thisLevel.enemies.Count > 0) {
-						EnemySave enemy = thisLevel.enemies.Dequeue();
+					Wave thisWave = levelQueue.Dequeue();
+					while (thisWave.enemies.Count > 0) {
+						EnemySave enemy = thisWave.enemies.Dequeue();
 
 						// Generates clone at given or random position and with given or random transform
 						Transform clone;
@@ -203,10 +205,10 @@ public class SpawnEnemyScript : MonoBehaviour {
 	}
 }
 
-public class Level {
+public class Wave {
 	public Queue<EnemySave> enemies;
 	public int respawnTime;
-	public Level (int time) {
+	public Wave (int time) {
 		enemies = new Queue<EnemySave> ();
 		respawnTime = time;
 	}
