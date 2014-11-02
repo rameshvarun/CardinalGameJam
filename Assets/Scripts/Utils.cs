@@ -15,4 +15,10 @@ public class Utils {
 			list[n] = value;
 		}
 	}
+
+
+	public static char GetLetter() {
+		int num = Random.Range(0, 26);
+		return (char)('a' + num);
+	}
 }
