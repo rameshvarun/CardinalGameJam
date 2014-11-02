@@ -6,9 +6,11 @@ public class GameManager : MonoBehaviour {
 	/// In release, set this to 3.
 	/// </summary>
 	public static int NUM_PLAYERS = 2;
+	public SpawnEnemyScript enemySpawner;
 
 
 	int playersLoaded = 0;
+	bool isLoaded = false;
 
 	/// <summary>
 	/// Called on a client when it loses connection with the server.
@@ -56,13 +58,16 @@ public class GameManager : MonoBehaviour {
 	[RPC]
 	void AllPlayersLoaded() {
 		Debug.Log("All players loaded scene.");
+		isLoaded = true;
+
+		if (Network.isServer)
+						GetComponent<SpawnEnemyScript> ().enabled = true;
 		// Spawn players
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(Network.isServer) {
-			// Spawn enemies and stuff
+		if(Network.isServer && isLoaded) {
 		}
 	}
 }
