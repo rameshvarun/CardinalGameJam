@@ -36,6 +36,8 @@ public class MainMenu : MonoBehaviour {
 	private int players = 0;
 
 	public static ShipColor myColor;
+	public AudioClip back;
+	public AudioClip select;
 
 	public void OnDisconnectedFromServer(NetworkDisconnection info) {
 		MainMenu.info = info;
@@ -147,8 +149,11 @@ public class MainMenu : MonoBehaviour {
 		}
 	}
 
+	float volume = 0.2f;
+
 	void JoinGame() {
 		nextState = MenuState.ServerList;
+		AudioSource.PlayClipAtPoint(select, transform.position, volume);
 	}
 
 	void HostGame() {
@@ -157,6 +162,7 @@ public class MainMenu : MonoBehaviour {
 		nextState = MenuState.Lobby;
 
 		players = 1;
+		AudioSource.PlayClipAtPoint(select, transform.position, volume);
 	}
 
 	[RPC]
@@ -170,6 +176,8 @@ public class MainMenu : MonoBehaviour {
 	void Highscore() {
 		nextState = MenuState.Highscores;
 		request = null;
+
+		AudioSource.PlayClipAtPoint(select, transform.position, volume);
 	}
 
 	void Back() {
@@ -177,6 +185,8 @@ public class MainMenu : MonoBehaviour {
 			Network.Disconnect();
 		}
 		nextState = MenuState.Main;
+
+		AudioSource.PlayClipAtPoint(back, transform.position, volume);
 	}
 
 	void OnPlayerConnected(NetworkPlayer player) {
