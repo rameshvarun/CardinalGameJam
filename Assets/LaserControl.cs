@@ -24,23 +24,6 @@ public class LaserControl : MonoBehaviour {
 	
 	// Uses this for initialization
 	void Start () {
-
-		if(MainMenu.myColor == ShipColor.Red)
-			playerLaser = redLaser;
-		else if(MainMenu.myColor == ShipColor.Blue)
-			playerLaser = blueLaser;
-		else if(MainMenu.myColor == ShipColor.Green)
-			playerLaser = greenLaser;
-
-		//greenLaser.active = true;
-		//blueLaser.active = true;
-		StopLaser(redLaser);
-		StopLaser(blueLaser);
-		StopLaser(greenLaser);
-
-//		activeLasers.Enqueue (greenLaser);
-//		activeLasers.Enqueue (blueLaser);
-
 	}
 
 	void GetLaserPointers() {
@@ -51,11 +34,22 @@ public class LaserControl : MonoBehaviour {
 		magentaLaser = new Laser (GameObject.FindGameObjectWithTag ("MagentaLaser"));
 		cyanLaser = new Laser (GameObject.FindGameObjectWithTag ("CyanLaser"));
 		whiteLaser = new Laser (GameObject.FindGameObjectWithTag ("WhiteLaser"));
+
+		if(MainMenu.myColor == ShipColor.Red)
+			playerLaser = redLaser;
+		else if(MainMenu.myColor == ShipColor.Blue)
+			playerLaser = blueLaser;
+		else if(MainMenu.myColor == ShipColor.Green)
+			playerLaser = greenLaser;
+
+		StopLaser(redLaser);
+		StopLaser(blueLaser);
+		StopLaser(greenLaser);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(redLaser == null) GetLaserPointers();
+		if(redLaser == null || greenLaser == null || blueLaser == null) GetLaserPointers();
 		else {
 			updatePlayerLaser ();
 			checkLaserCollisions ();
