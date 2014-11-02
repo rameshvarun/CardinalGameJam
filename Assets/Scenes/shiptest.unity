@@ -155,7 +155,7 @@ GameObject:
   - 4: {fileID: 23425092}
   - 212: {fileID: 23425091}
   m_Layer: 0
-  m_Name: Laser
+  m_Name: CyanLaser
   m_TagString: CyanLaser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,7 +195,7 @@ Transform:
   m_LocalScale: {x: 5.92029285, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!1 &79741522
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +246,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
 --- !u!1001 &254210754
 Prefab:
   m_ObjectHideFlags: 0
@@ -371,33 +371,6 @@ Prefab:
   m_RootGameObject: {fileID: 404870455}
   m_IsPrefabParent: 0
   m_IsExploded: 1
---- !u!1 &299307507
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 299307509}
-  m_Layer: 0
-  m_Name: GameController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &299307509
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 299307507}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 159.809738, y: 196.57695, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
 --- !u!1 &301982813
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,7 +536,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
 --- !u!1 &430727957
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +587,7 @@ Transform:
   m_LocalScale: {x: 5.92029285, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
 --- !u!1001 &430762238
 Prefab:
   m_ObjectHideFlags: 0
@@ -678,6 +651,10 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
+      propertyPath: m_Name
+      value: YellowLaser
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
   m_RootGameObject: {fileID: 1740215238}
@@ -733,7 +710,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
 --- !u!1 &564405505
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,7 +721,7 @@ GameObject:
   - 4: {fileID: 564405507}
   - 212: {fileID: 564405506}
   m_Layer: 0
-  m_Name: Laser
+  m_Name: MagentaLaser
   m_TagString: MagentaLaser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -784,7 +761,7 @@ Transform:
   m_LocalScale: {x: 5.92029285, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!1001 &568966742
 Prefab:
   m_ObjectHideFlags: 0
@@ -959,6 +936,10 @@ Prefab:
     - target: {fileID: 400000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
       propertyPath: m_LocalScale.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
+      propertyPath: m_Name
+      value: MagentaLaser
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
@@ -1137,7 +1118,7 @@ Transform:
   m_Children:
   - {fileID: 1761322694}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!61 &874604708
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1792,7 +1773,7 @@ GameObject:
   - 4: {fileID: 1740215240}
   - 212: {fileID: 1740215239}
   m_Layer: 0
-  m_Name: Laser
+  m_Name: YellowLaser
   m_TagString: YellowLaser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1832,7 +1813,7 @@ Transform:
   m_LocalScale: {x: 5.92029285, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!1 &1761322692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1923,7 +1904,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!1001 &2031351094
 Prefab:
   m_ObjectHideFlags: 0
@@ -1986,6 +1967,10 @@ Prefab:
     - target: {fileID: 400000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
       propertyPath: m_LocalScale.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
+      propertyPath: m_Name
+      value: CyanLaser
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97b0d5c66d3a440aaa7a390e1d4c336d, type: 2}
