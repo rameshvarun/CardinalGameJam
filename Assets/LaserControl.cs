@@ -17,6 +17,8 @@ public class LaserControl : MonoBehaviour {
 	public Laser cyanLaser;
 	public Laser whiteLaser;
 
+	private string myColorString;
+
 	public Laser playerLaser; // of this client
 	public static int LASER_SPRITE_LENGTH = 100;
 
@@ -35,12 +37,17 @@ public class LaserControl : MonoBehaviour {
 		cyanLaser = new Laser (GameObject.FindGameObjectWithTag ("CyanLaser"));
 		whiteLaser = new Laser (GameObject.FindGameObjectWithTag ("WhiteLaser"));
 
-		if(MainMenu.myColor == ShipColor.Red)
+		if (MainMenu.myColor == ShipColor.Red) {
 			playerLaser = redLaser;
-		else if(MainMenu.myColor == ShipColor.Blue)
+			myColorString = "r";
+
+		} else if (MainMenu.myColor == ShipColor.Blue) {
 			playerLaser = blueLaser;
-		else if(MainMenu.myColor == ShipColor.Green)
-			playerLaser = greenLaser;
+			myColorString = "b";
+		} else if (MainMenu.myColor == ShipColor.Green) {
+			playerLaser = greenLaser; 
+			myColorString = "g";
+		}
 
 		StopLaser(redLaser);
 		StopLaser(blueLaser);
@@ -55,22 +62,66 @@ public class LaserControl : MonoBehaviour {
 			checkLaserCollisions ();
 		}
 	}
-
+	void ActivateMyLaser() {
+		Debug.Log ("Imma FIRIN MA LAZAR!");
+		ActivateLaser (playerLaser);
+		networkView.RPC ("ActivateTeammateLaser", RPCMode.Others, myColorString);
+	}
 	void ActivateLaser(Laser laser) {
+		Debug.Log ("Muahaha! The LASER!");
 		laser.active = true;
 		laser.gameObject.SetActive(true);
 		Camera.main.SendMessage("Shake", CameraShake.SMALL_SHAKE);
 	}
 
+	/// <summary>
+	/// Hears when a teammate activates their laser and displays it as on
+	/// </summary>
+	[RPC]
+	void ActivateTeammateLaser(string colorStr) {
+		Debug.Log ("What? Not the Laser by " + colorStr + "!!");
+		if (colorStr.Equals("r")) {
+			ActivateLaser(redLaser);
+		}
+		else if (colorStr.Equals("g")) {
+			ActivateLaser(greenLaser);
+		}
+		else if (colorStr.Equals("b")) {
+			ActivateLaser(blueLaser);
+		}
+	}
+
+	void StopMyLaser () {
+		Debug.Log ("No! My laser!!");
+		StopLaser (playerLaser);
+		networkView.RPC ("StopTeammateLaser", RPCMode.Others, myColorString);
+	}
+
 	void StopLaser(Laser laser) {
+		Debug.Log ("That's enough of this laser.");
 		laser.active = false;
 		laser.gameObject.SetActive(false);
+	}
+		/// <summary>
+		/// Hears when a teammate activates their laser and displays it as on
+		/// </summary>
+	[RPC]
+	void StopTeammateLaser(string colorStr){
+		Debug.Log ("Hasta la vista, lazer " + colorStr + "!");
+		if (colorStr.Equals("r")) {
+			StopLaser(redLaser);
+		}
+		else if (colorStr.Equals("g")) {
+			StopLaser(greenLaser);
+		}
+		else if (colorStr.Equals("b")) {
+			StopLaser(blueLaser);
+		}
 	}
 
 	void updatePlayerLaser() {
 		if (Input.GetMouseButtonDown (0)) {
-			ActivateLaser(playerLaser);
-
+			ActivateMyLaser();
 		}
 		// If mouse is down, rotate with its parent
 		else if (Input.GetMouseButton (0)) {
@@ -87,7 +138,7 @@ public class LaserControl : MonoBehaviour {
 			}
 		}
 		else {
-			StopLaser(playerLaser);
+			StopMyLaser();
 		}
 
 // 		Code for instantiating a new laser, if we do that:
