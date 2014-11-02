@@ -8,9 +8,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
+  - 212: {fileID: 21200000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: BackgroundSpawner
+  m_Name: Planet5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: .563088417, y: .563088417, z: .563088417}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -36,24 +37,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec09107c14d0cd44a22ea587d273117, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b11770659d0ae44a9d578139820c770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stars1: {fileID: 400000, guid: 454e880d351d21246b101f3954c07481, type: 2}
-  stars2: {fileID: 400000, guid: 2a5f631f5d94fad499b56817c5e46eee, type: 2}
-  stars3: {fileID: 400000, guid: 693eecfc9ccb56449a6e554c2b5aabaf, type: 2}
-  entities:
-  - {fileID: 400000, guid: 006b10eceda552e458be446e3da9c18b, type: 2}
-  - {fileID: 400000, guid: 133e0a453402c624abac7eb840cb649d, type: 2}
-  - {fileID: 400000, guid: a6d87b3299002ce47aa84e4a9905a23f, type: 2}
-  - {fileID: 400000, guid: 31a76d10fb0c3f14088f2de709649f6e, type: 2}
-  - {fileID: 400000, guid: de6670597633e4843896a9a48c71bc49, type: 2}
-  - {fileID: 400000, guid: 10585752b16f97841b85fc56aac4cb76, type: 2}
-  - {fileID: 400000, guid: daf7bcce4d63d5a49b657fd740006245, type: 2}
-  - {fileID: 400000, guid: b3cf2719cb4c7c74cbb3109e0a2e82a5, type: 2}
-  - {fileID: 400000, guid: cbf773209dc7f4f4fa0e0183ba411506, type: 2}
-  - {fileID: 400000, guid: ddc158ff1be462340abdd061d8492c0e, type: 2}
-  nextRange: {x: 15, y: 15}
+  speed: .5
+--- !u!212 &21200000
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 9a183d5ec1ddfff4899a1d89eaae3753, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
