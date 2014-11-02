@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour {
 	void PlayerLoaded() {
 		++playersLoaded;
 		Debug.Log(playersLoaded + " players loaded.");
-		if(playersLoaded >= GameManager.NUM_PLAYERS) {
+		if(playersLoaded >= GameManager.NUM_PLAYERS && !isLoaded) {
 			networkView.RPC("AllPlayersLoaded", RPCMode.All);
 		}
 	}

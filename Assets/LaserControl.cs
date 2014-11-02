@@ -17,6 +17,8 @@ public class LaserControl : MonoBehaviour {
 	public Laser cyanLaser;
 	public Laser whiteLaser;
 
+	private string myColorString;
+
 	public Laser playerLaser; // of this client
 	public static int LASER_SPRITE_LENGTH = 100;
 
@@ -35,12 +37,17 @@ public class LaserControl : MonoBehaviour {
 		cyanLaser = new Laser (GameObject.FindGameObjectWithTag ("CyanLaser"));
 		whiteLaser = new Laser (GameObject.FindGameObjectWithTag ("WhiteLaser"));
 
-		if(MainMenu.myColor == ShipColor.Red)
+		if (MainMenu.myColor == ShipColor.Red) {
 			playerLaser = redLaser;
-		else if(MainMenu.myColor == ShipColor.Blue)
+			myColorString = "r";
+
+		} else if (MainMenu.myColor == ShipColor.Blue) {
 			playerLaser = blueLaser;
-		else if(MainMenu.myColor == ShipColor.Green)
-			playerLaser = greenLaser;
+			myColorString = "b";
+		} else if (MainMenu.myColor == ShipColor.Green) {
+			playerLaser = greenLaser; 
+			myColorString = "g";
+		}
 
 		StopLaser(redLaser);
 		StopLaser(blueLaser);
@@ -49,29 +56,62 @@ public class LaserControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(redLaser == null || greenLaser == null || blueLaser == null) GetLaserPointers();
+		if(redLaser == null || redLaser.gameObject == null || greenLaser == null || greenLaser.gameObject == null || blueLaser == null || blueLaser.gameObject == null) GetLaserPointers();
 		else {
-			updatePlayerLaser ();
+			updateLasers ();
 			checkLaserCollisions ();
 		}
 	}
-
+	void ActivateMyLaser() {
+		Debug.Log ("Imma FIRIN MA LAZAR!");
+		ActivateLaser (playerLaser);
+		networkView.RPC ("ActivateTeammateLaser", RPCMode.Others, myColorString);
+	}
 	void ActivateLaser(Laser laser) {
+		Debug.Log ("Muahaha! The LASER!");
 		laser.active = true;
 		laser.gameObject.SetActive(true);
 		Camera.main.SendMessage("Shake", CameraShake.SMALL_SHAKE);
 	}
 
+	/// <summary>
+	/// Hears when a teammate activates their laser and displays it as on
+	/// </summary>
+	[RPC]
+	void ActivateTeammateLaser(string colorStr) {
+		Debug.Log ("What? Not the Laser by " + colorStr + "!!");
+		if (colorStr.Equals("r")) {
+			ActivateLaser(redLaser);
+		}
+		else if (colorStr.Equals("g")) {
+			ActivateLaser(greenLaser);
+		}
+		else if (colorStr.Equals("b")) {
+			ActivateLaser(blueLaser);
+		}
+	}
+
+	void StopMyLaser () {
+		Debug.Log ("No! My laser!!");
+		StopLaser (playerLaser);
+		networkView.RPC ("StopTeammateLaser", RPCMode.Others, myColorString);
+	}
+
 	void StopLaser(Laser laser) {
+		Debug.Log ("That's enough of this laser.");
 		laser.active = false;
 		laser.gameObject.SetActive(false);
 	}
-
-	void updatePlayerLaser() {
-		if (Input.GetMouseButtonDown (0)) {
-			ActivateLaser(playerLaser);
-
+		/// <summary>
+		/// Hears when a teammate activates their laser and displays it as on
+		/// </summary>
+	[RPC]
+	void StopTeammateLaser(string colorStr){
+		Debug.Log ("Hasta la vista, lazer " + colorStr + "!");
+		if (colorStr.Equals("r")) {
+			StopLaser(redLaser);
 		}
+<<<<<<< HEAD
 		// If mouse is down, rotate with its parent
 		else if (Input.GetMouseButton (0)) {
 			if (playerLaser.active) {
@@ -85,18 +125,36 @@ public class LaserControl : MonoBehaviour {
 				playerLaser.setTrajectoryAndEndPositionFromAngle ();
 				playerLaser.setAlphaByDistance(Vector3.Distance(mousePos, playerLaser.startPosition));
 			}
+=======
+		else if (colorStr.Equals("g")) {
+			StopLaser(greenLaser);
+>>>>>>> e724454b9933c9f1c90e95cdc70f5c55f7becdac
 		}
-		else {
-			StopLaser(playerLaser);
+		else if (colorStr.Equals("b")) {
+			StopLaser(blueLaser);
 		}
+	}
 
-// 		Code for instantiating a new laser, if we do that:
+	void updateLasers () {
+		if (Input.GetMouseButtonDown (0)) {
+			ActivateMyLaser();
+		} else if (Input.GetMouseButtonUp (0)) {
+			StopMyLaser ();
+		}
+		turnLaser(redLaser);
+		turnLaser(greenLaser);
+		turnLaser(blueLaser);
+	}
+
+	void turnLaser(Laser laser) {
+		if (laser.active) {
 //			Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-//			Vector3 dir = mousePos - testShipLocation;
-//			float angle = Mathf.Atan2 (dir.y, dir.x) * Mathf.Rad2Deg;
-//			Transform newLaser = Instantiate (laserPrefab, testShipLocation, Quaternion.identity) as Transform;
-//			newLaser.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
-//			newLaser.localScale = new Vector3(8,1,0);
+//			mousePos.z = 0;
+			float angle = playerLaser.gameObject.transform.parent.gameObject.transform.rotation.eulerAngles.z;
+			redLaser.setAngle(angle);
+			redLaser.setTrajectoryAndEndPositionFromAngle ();
+//			redLaser.setAlphaByDistance(Vector3.Distance(mousePos, playerLaser.startPosition));
+		}
 	}
 
 	void checkLaserCollisions() {
