@@ -49,7 +49,7 @@ public class LaserControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(redLaser == null || greenLaser == null || blueLaser == null) GetLaserPointers();
+		if(redLaser == null || redLaser.gameObject == null || greenLaser == null || greenLaser.gameObject == null || blueLaser == null || blueLaser.gameObject == null) GetLaserPointers();
 		else {
 			updatePlayerLaser ();
 			checkLaserCollisions ();
